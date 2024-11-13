@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>AUTHOR INFO</h2>
+
+<mat-dialog-content>
+    <mat-label>Name</mat-label> 
+    <div ngClass="propertyValue">
+        {{(author$ | async)?.name }}
+    </div>
+    <mat-label>Email</mat-label>
+    <div ngClass="propertyValue">
+        {{(author$ | async)?.email }}
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions ngClass="card-actions"> 
+    <button 
+        mat-stroked-button 
+        mat-dialog-close 
+        ngClass="closeButton">CLOSE
+    </button>
+</mat-dialog-actions>
+
+<div *ngIf="errorMessage$ | async">
+    <app-error 
+        [errorMessage]="errorMessage$ | async">
+    </app-error>
+</div>

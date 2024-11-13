@@ -1,0 +1,15 @@
+<div *ngIf="!(isLoading$ | async)">
+    <div *ngFor="let postComment of postComments$ | async">
+        <app-post-comment [postComment]="postComment"></app-post-comment>
+    </div>
+</div>
+
+<div *ngIf="isLoading$ | async">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div *ngIf="errorMessage$ | async">
+    <app-error 
+        [errorMessage]="errorMessage$ | async">
+    </app-error>
+</div>

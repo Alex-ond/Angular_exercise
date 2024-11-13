@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 1rem;
+    color: #444;  
+    display: block;
+    height: 100%;
+    margin: 0 auto;
+    background-color: beige;
+}
+
+html, body 
+{ 
+  height: 100%; 
+  --mat-dialog-actions-alignment: end;
+}
+
+.card { 
+  margin-bottom: 0.2rem;
+}
+
+.card-actions {
+  justify-content: flex-end;
+}

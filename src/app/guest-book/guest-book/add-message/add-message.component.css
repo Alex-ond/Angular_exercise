@@ -1,0 +1,12 @@
+.addButton {
+    float: right;
+    font-size: 0.6rem;
+}
+
+.name, .email {
+    width: 75%;
+}
+
+.message {
+    width: 100%;
+}

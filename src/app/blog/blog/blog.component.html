@@ -1,0 +1,33 @@
+<div ngClass="controls">
+    <mat-form-field>
+        <mat-label>Filter by title</mat-label>
+        <input matInput #filterValue/>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Sort by</mat-label>
+        <mat-select value="desc" #orderValue>
+          <mat-option value="desc">the newest</mat-option>
+          <mat-option value="asc">the oldest</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<div *ngIf="!(isLoading$ | async)">
+    <div 
+        *ngFor="let post of posts$ 
+            | async 
+            | filter:filterValue.value:['title'] 
+            | orderBy:orderValue.value:'id'">
+        <app-post [post]="post"></app-post>
+    </div>
+</div>
+
+<div *ngIf="isLoading$ | async">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div *ngIf="errorMessage$ | async">
+    <app-error 
+        [errorMessage]="errorMessage$ | async">
+    </app-error>
+</div>

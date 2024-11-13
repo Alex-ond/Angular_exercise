@@ -1,0 +1,19 @@
+.header {
+    display: flex; 
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.header > * + * {
+    margin-left: 1rem;
+}
+
+a {
+    font-size: 2rem;
+    text-decoration: none;
+    color: rgb(90, 90, 43)    ;
+}
+
+.active {
+    font-weight: 600;
+}
