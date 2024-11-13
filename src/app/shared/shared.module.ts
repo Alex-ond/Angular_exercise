@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FilterPipe } from '../shared/pipes/filter.pipe';
 import { ErrorComponent } from '../shared/error/error.component';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [    
@@ -26,6 +27,7 @@ import { NgModule } from '@angular/core';
         MatTooltip,
         MatFormFieldModule,
         MatInputModule,
+        CommonModule
     ],
     providers: []
 })
