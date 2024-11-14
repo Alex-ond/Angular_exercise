@@ -1,13 +1,13 @@
 <h2 mat-dialog-title>AUTHOR INFO</h2>
 
-<mat-dialog-content>
+<mat-dialog-content *ngIf="(author$ | async) as author">
     <mat-label>Name</mat-label> 
     <div ngClass="propertyValue">
-        {{(author$ | async)?.name }}
+        {{ author.name }}
     </div>
     <mat-label>Email</mat-label>
     <div ngClass="propertyValue">
-        {{(author$ | async)?.email }}
+        {{ author.email }}
     </div>
 </mat-dialog-content>
 
