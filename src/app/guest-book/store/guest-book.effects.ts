@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType  } from '@ngrx/effects';
 import * as GuestBookActions from "./guest-book.actions";
-import { catchError, map, of, switchMap } from "rxjs";
+import { catchError, concatMap, map, of, switchMap } from "rxjs";
 import { GuestBookService } from "../services/guest-book.service";
 
 @Injectable()
@@ -21,7 +21,7 @@ export class GuestBookEffects {
     addMessage$ = createEffect(() => 
         this.actions$.pipe(
             ofType(GuestBookActions.addMessage),
-            switchMap(action => 
+            concatMap(action => 
                 this.guestBookService.addMessage(action.message).pipe(
                     map(message => GuestBookActions.addMessageSuccess({message})),
                     catchError((error: Error) => of(GuestBookActions.addMessageFailure({errorMessage: error.message}))
