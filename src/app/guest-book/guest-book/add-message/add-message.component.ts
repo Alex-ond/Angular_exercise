@@ -11,7 +11,7 @@ import * as Selectors from '../../store/guest-book.selectors'
   styleUrl: './add-message.component.css'
 })
 export class AddMessageComponent {
-  errorMessage$ = this.store.select(Selectors.messagesFetchingErrorMessageSelector);  
+  errorMessage$ = this.store.select(Selectors.messageAddingErrorMessage);  
   form  = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.email),
