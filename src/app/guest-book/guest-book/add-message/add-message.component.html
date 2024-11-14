@@ -30,8 +30,8 @@
     </mat-card-content>
 </mat-card>
 
-<div *ngIf="errorMessage$ | async">
+<div *ngIf="errorMessage$ | async as errorMessage">
     <app-error 
-        [errorMessage]="errorMessage$ | async">
+        [errorMessage]="errorMessage">
     </app-error>
 </div>
