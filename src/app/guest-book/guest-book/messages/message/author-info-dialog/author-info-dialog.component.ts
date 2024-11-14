@@ -10,8 +10,7 @@ import { GuestBookState } from '../../../../store/guest-book.state';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthorInfoDialogComponent {
-  author$ = this.store.select(Selectors.messageAuthorSelector);
-  errorMessage$ = this.store.select(Selectors.messagesFetchingErrorMessageSelector);
+  author$ = this.store.select(Selectors.selectedMessageAuthorSelector);
 
   constructor(private store: Store<GuestBookState>) {}
 }

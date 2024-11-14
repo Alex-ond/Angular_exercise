@@ -1,7 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import * as BlogActions from "./guest-book.actions";
 import { GuestBookState, initialState } from "./guest-book.state";
-import { Author } from "../models/author";
 
 export const guestBookReducer = createReducer<GuestBookState>(
     initialState,
@@ -34,8 +33,9 @@ export const guestBookReducer = createReducer<GuestBookState>(
             messageAddingErrorMessage: '' };
     }),
     on(BlogActions.addMessageSuccess, (state, action) => {
-        const messages = [...state.messages];
+        const messages = [...state.messages];        
         messages.push(action.message);
+        console.log(messages);
         return { 
             ...state, 
             isMessageAdding: false,
@@ -48,21 +48,11 @@ export const guestBookReducer = createReducer<GuestBookState>(
             messageAddingErrorMessage: action.errorMessage };
     }),
 
-    //fetch message author
-    on(BlogActions.fetchMessageAuthor, (state) => {
+    //select message
+    on(BlogActions.selectMessage, (state, action) => {
         return { 
             ...state, 
-            messageAuthorFetchingErrorMessage: '', 
+            selectedMessageId: action.messageId
         };
-    }),
-    on(BlogActions.fetchMessageAuthorSuccess, (state, action) => {
-        return { 
-            ...state, 
-            messageAuthor: action.author};
-    }),
-    on(BlogActions.fetchMessageAuthorFailure, (state, action) => {
-        return { 
-            ...state, 
-            messageAuthorFetchingErrorMessage: action.errorMessage };
     }),
 );  

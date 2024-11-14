@@ -1,39 +1,51 @@
-import { of } from "rxjs";
+import { map, Observable } from "rxjs";
 import { Message } from "../models/message";
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
+import { InjectNames } from "../../shared/inject-names";
+import { HttpClient } from "@angular/common/http";
+
+type apiMessage = {
+    message: string, 
+    author: {
+        name: string,
+        email: string | null
+    }
+}
 
 @Injectable({ providedIn: 'root'})
-export class GuestBookService{
-    private messages: Message[] = [
-        {
-            id: 1,
-            author: {
-                name: 'Nora Daniel',
-                email: 'Nora.Daniel@google.com'
-            },            
-            message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
-        },
-        {
-            id: 2,
-            author: {
-                name: 'Zane Munoz',
-                email: 'Zane.Munoz@inbox.lv'                
-            },   
-            message: 'Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.'
-        }
-    ]
+export class GuestBookService{   
+    constructor(@Inject(InjectNames.GuestBookApiUrl) private url: string, private http: HttpClient) {}
 
     fetchMessages() {
-        return of([...this.messages]);
+        return this.http.get<{[key: string]: apiMessage}>(this.url).pipe(
+        map((response) => 
+        {
+            if(!response) {
+                return [];
+            }
+            const messages: Message[] = [];
+            for(const key in response) {
+                if (response.hasOwnProperty(key)) {
+                    messages.push({...response[key], id: key});
+                }
+            }
+            return messages;            
+        }));
     }
 
-    addMessage(message: Message) {
-        this.messages.push({...message, id: this.messages.length + 1});
-        return of(this.messages[this.messages.length - 1]);
-    }
-
-    fetchMessageAuthor(messageId: number) {
-         const author = this.messages.find(message => message.id === messageId)?.author;
-         return of(author ? author : null);
+    addMessage(message: Message): Observable<Message> {        
+        const request: apiMessage = 
+        {
+            message: message.message,
+            author: {
+                name: message.author.name,
+                email: message.author.email
+            }
+        };
+        return this.http.post<{name: string}>(this.url, request).pipe(
+            map(response => 
+            {               
+                return {...request, id: response.name}
+            }));
     }
 }

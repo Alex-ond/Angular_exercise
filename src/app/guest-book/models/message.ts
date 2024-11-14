@@ -1,7 +1,7 @@
 import { Author } from "./author"
 
 export type Message = {
-    id: number,  
+    id: string,  
     message: string,
     author: Author
 }

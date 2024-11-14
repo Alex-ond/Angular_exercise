@@ -24,12 +24,12 @@ export const messageAddingErrorMessage = createSelector(
     state => state.messageAddingErrorMessage
 )    
 
-export const messageAuthorSelector = createSelector(
+export const selectedMessageAuthorSelector = createSelector(
   getFeatureState,
-    state => state.messageAuthor
-)    
-
-export const messageAuthorFetchingErrorMessageSelector = createSelector(
-  getFeatureState,
-    state => state.messageAuthorFetchingErrorMessage
+    state => {
+      if (!state.selectedMessageId) {
+        return null;
+      }
+      return state.messages.find(message => message.id === state.selectedMessageId)?.author;
+    }
 )    

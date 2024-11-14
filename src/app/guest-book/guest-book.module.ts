@@ -21,7 +21,8 @@ import { MessagesComponent } from './guest-book/messages/messages.component';
 import { MessageComponent } from './guest-book/messages/message/message.component';
 import { AddMessageComponent } from './guest-book/add-message/add-message.component';
 import { AuthorInfoDialogComponent } from './guest-book/messages/message/author-info-dialog/author-info-dialog.component';
-
+import { InjectNames } from '../shared/inject-names';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,9 @@ import { AuthorInfoDialogComponent } from './guest-book/messages/message/author-
     MatDialogModule
 ],
   providers: [    
+    {
+      provide: InjectNames.GuestBookApiUrl, useValue: environment.guestBookApiUrl
+    }
   ]
 })
 export class GuestBookModule {}

@@ -4,7 +4,7 @@ import { AuthorInfoDialogComponent } from './author-info-dialog/author-info-dial
 import { Store } from '@ngrx/store';
 import { GuestBookState } from '../../../store/guest-book.state';
 import { Message } from '../../../models/message';
-import { fetchMessageAuthor } from '../../../store/guest-book.actions';
+import { selectMessage } from '../../../store/guest-book.actions';
 
 @Component({
   selector: 'app-message',
@@ -18,8 +18,8 @@ export class MessageComponent {
 
   constructor(private store: Store<GuestBookState>) {}
 
-  openAuthorInfoDialog(messageId: number) {    
-    this.store.dispatch(fetchMessageAuthor(messageId));
+  openAuthorInfoDialog(messageId: string) {    
+    this.store.dispatch(selectMessage(messageId));
     this.dialog.open(AuthorInfoDialogComponent, 
       {
         height: '300px', 

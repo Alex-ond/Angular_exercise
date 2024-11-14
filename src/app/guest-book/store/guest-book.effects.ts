@@ -25,14 +25,5 @@ export class GuestBookEffects {
                 this.guestBookService.addMessage(action.message).pipe(
                     map(message => GuestBookActions.addMessageSuccess({message})),
                     catchError((error: Error) => of(GuestBookActions.addMessageFailure({errorMessage: error.message}))
-                    )))));
-
-    fetchMessageAuthor$ = createEffect(() => 
-        this.actions$.pipe(
-            ofType(GuestBookActions.fetchMessageAuthor),
-            switchMap(action => 
-                this.guestBookService.fetchMessageAuthor(action.messageId).pipe(
-                    map(author => GuestBookActions.fetchMessageAuthorSuccess({author})),
-                    catchError((error: Error) => of(GuestBookActions.fetchMessageAuthorFailure({errorMessage: error.message}))
-                    )))));                    
+                    )))));              
 }

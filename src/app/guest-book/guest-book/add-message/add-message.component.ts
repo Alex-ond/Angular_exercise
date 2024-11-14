@@ -29,7 +29,7 @@ export class AddMessageComponent {
   private getMessage() {
     var rawValue = this.form.getRawValue();
     return { 
-      id: 0,
+      id: '',
       message: rawValue.message!,
       author: {
         name: rawValue.name!,

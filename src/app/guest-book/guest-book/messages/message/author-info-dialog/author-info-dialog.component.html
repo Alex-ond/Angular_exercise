@@ -18,9 +18,3 @@
         ngClass="closeButton">CLOSE
     </button>
 </mat-dialog-actions>
-
-<div *ngIf="errorMessage$ | async">
-    <app-error 
-        [errorMessage]="errorMessage$ | async">
-    </app-error>
-</div>

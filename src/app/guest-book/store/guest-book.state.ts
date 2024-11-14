@@ -1,5 +1,4 @@
 import { AppState } from "../../store/app.state";
-import { Author } from "../models/author";
 import { Message } from "../models/message";
 
 export interface GuestBookState extends AppState{
@@ -10,8 +9,7 @@ export interface GuestBookState extends AppState{
     isMessageAdding: boolean,
     messageAddingErrorMessage: string,
 
-    messageAuthor: Author | null,
-    messageAuthorFetchingErrorMessage: string
+    selectedMessageId?: string
 }
 
 export const initialState: GuestBookState = {    
@@ -20,8 +18,5 @@ export const initialState: GuestBookState = {
     messagesFetchingErrorMessage: '',
 
     isMessageAdding: false,
-    messageAddingErrorMessage: '',
-
-    messageAuthor: null,
-    messageAuthorFetchingErrorMessage: ''
+    messageAddingErrorMessage: ''
 }
