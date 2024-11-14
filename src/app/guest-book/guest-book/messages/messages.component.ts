@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as Selectors from '../../store/guest-book.selectors'
 import { GuestBookState } from '../../store/guest-book.state';
@@ -7,7 +7,8 @@ import { fetchMessages } from '../../store/guest-book.actions';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrl: './messages.component.css'
+  styleUrl: './messages.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessagesComponent {
   messages$ = this.store.select(Selectors.messagesSelector);

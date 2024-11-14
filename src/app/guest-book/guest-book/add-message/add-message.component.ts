@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { GuestBookState } from '../../store/guest-book.state';
@@ -8,7 +8,8 @@ import * as Selectors from '../../store/guest-book.selectors'
 @Component({
   selector: 'app-add-message',
   templateUrl: './add-message.component.html',
-  styleUrl: './add-message.component.css'
+  styleUrl: './add-message.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddMessageComponent {
   errorMessage$ = this.store.select(Selectors.messageAddingErrorMessage);  

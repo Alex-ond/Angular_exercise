@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthorInfoDialogComponent } from './author-info-dialog/author-info-dialog.component';
 import { Store } from '@ngrx/store';
@@ -9,7 +9,8 @@ import { selectMessage } from '../../../store/guest-book.actions';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
-  styleUrl: './message.component.css'
+  styleUrl: './message.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessageComponent {
   @Input({required: true})
