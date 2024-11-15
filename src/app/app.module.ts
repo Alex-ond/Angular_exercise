@@ -5,11 +5,11 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AppRoutingModule } from './app-routing.module';
-import { BlogModule } from './blog/blog.module';
+import { BlogModule } from './features/blog/blog.module'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { GuestBookModule } from './guest-book/guest-book.module';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './core/layout/header/header.component';
 
 @NgModule({
   declarations: [

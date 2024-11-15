@@ -3,8 +3,8 @@ import { Post } from "../models/post";
 import { combineLatestWith, map, Observable } from "rxjs";
 import { Inject, Injectable } from "@angular/core";
 import { PostComment } from "../models/post-comment";
-import { InjectNames } from "../../shared/inject-names";
 import { UsersService } from "./users.service";
+import { InjectNames } from "../../../shared/inject-names";
 
 @Injectable({ providedIn: 'root'})
 export class PostsService {

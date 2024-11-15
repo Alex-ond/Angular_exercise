@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { fetchPosts } from '../store/blog.actions';
-import { BlogState } from '../store/blog.state';
-import * as Selectors from '../store/blog.selectors';
+import * as Selectors from '../../../store/blog.selectors';
+import { BlogState } from '../../../store/blog.state';
+import { fetchPosts } from '../../../store/blog.actions';
 
 @Component({
   selector: 'app-blog',

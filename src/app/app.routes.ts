@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { BlogComponent } from './blog/blog/blog.component';
-import { PostCommentsComponent } from './blog/blog/post/post-comments/post-comments.component';
 import { GuestBookComponent } from './guest-book/guest-book/guest-book.component';
+import { PostCommentsComponent } from './features/blog/blog/components/post-comments/post-comments.component';
+import { BlogComponent } from './features/blog/blog/components/blog/blog.component';
 
 export const routes: Routes = [
     { path: 'blog', component: BlogComponent, title: 'Blog' },

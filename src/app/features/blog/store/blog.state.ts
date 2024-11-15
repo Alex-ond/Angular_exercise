@@ -1,6 +1,6 @@
-import { AppState } from "../../store/app.state";
 import { PostComment } from "../models/post-comment";
 import { Post } from "../models/post";
+import { AppState } from "../../../core/store/app.state";
 
 export interface BlogState extends AppState{
     posts: Post[],

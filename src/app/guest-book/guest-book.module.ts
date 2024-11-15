@@ -22,7 +22,7 @@ import { MessageComponent } from './guest-book/messages/message/message.componen
 import { AddMessageComponent } from './guest-book/add-message/add-message.component';
 import { AuthorInfoDialogComponent } from './guest-book/messages/message/author-info-dialog/author-info-dialog.component';
 import { InjectNames } from '../shared/inject-names';
-import { environment } from '../environments/environment';
+import { environment } from '../core/environments/environment';
 
 @NgModule({
   declarations: [
