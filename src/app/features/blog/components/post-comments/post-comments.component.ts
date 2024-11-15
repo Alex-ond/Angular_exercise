@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as Selectors from '../../../store/blog.selectors';
-import { BlogState } from '../../../store/blog.state';
-import { fetchPostCommentsByPostId } from '../../../store/blog.actions';
+import * as Selectors from '../../store/blog.selectors';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BlogState } from '../../store/blog.state';
+import { fetchPostCommentsByPostId } from '../../store/blog.actions';
 
 @Component({
   selector: 'app-post-comments',

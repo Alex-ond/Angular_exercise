@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthorInfoDialogComponent } from './author-info-dialog/author-info-dialog.component';
 import { Store } from '@ngrx/store';
-import { GuestBookState } from '../../../store/guest-book.state';
-import { Message } from '../../../models/message';
-import { selectMessage } from '../../../store/guest-book.actions';
+import { Message } from '../../models/message';
+import { GuestBookState } from '../../store/guest-book.state';
+import { selectMessage } from '../../store/guest-book.actions';
+import { AuthorInfoDialogComponent } from '../author-info-dialog/author-info-dialog.component';
 
 @Component({
   selector: 'app-message',

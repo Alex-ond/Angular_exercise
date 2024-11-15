@@ -8,8 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BlogModule } from './features/blog/blog.module'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { GuestBookModule } from './guest-book/guest-book.module';
 import { HeaderComponent } from './core/layout/header/header.component';
+import { GuestBookModule } from './features/guest-book/guest-book.module';
 
 @NgModule({
   declarations: [

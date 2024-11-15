@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { PostComment } from '../../../models/post-comment';
+import { PostComment } from '../../models/post-comment';
 
 @Component({
   selector: 'app-post-comment',

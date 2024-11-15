@@ -16,14 +16,14 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { BlogEffects } from './store/blog.effects';
 import { blogReducer } from './store/blog.reducer';
-import { PostCommentsComponent } from './blog/components/post-comments/post-comments.component';
 import { FeatureNames } from '../../shared/feature-names';
 import { SharedModule } from '../../shared/shared.module';
 import { InjectNames } from '../../shared/inject-names';
 import { environment } from '../../core/environments/environment';
-import { BlogComponent } from './blog/components/blog/blog.component';
-import { PostCommentComponent } from './blog/components/post-comment/post-comment.component';
-import { PostComponent } from './blog/components/post/post.component';
+import { BlogComponent } from './components/blog/blog.component';
+import { PostCommentsComponent } from './components/post-comments/post-comments.component';
+import { PostComponent } from './components/post/post.component';
+import { PostCommentComponent } from './components/post-comment/post-comment.component';
 
 @NgModule({
   declarations: [

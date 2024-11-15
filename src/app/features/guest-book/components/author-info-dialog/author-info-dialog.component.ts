@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as Selectors from '../../../../store/guest-book.selectors';
-import { GuestBookState } from '../../../../store/guest-book.state';
+import * as Selectors from '../../store/guest-book.selectors';
+import { GuestBookState } from '../../store/guest-book.state';
 
 @Component({
   selector: 'app-author-info-dialog',

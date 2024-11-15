@@ -5,24 +5,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { SharedModule } from '../shared/shared.module';
 import { MatButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { FeatureNames } from '../shared/feature-names';
 import { GuestBookEffects } from './store/guest-book.effects';
 import { guestBookReducer } from './store/guest-book.reducer';
 import { MatDialogModule} from '@angular/material/dialog';
-import { GuestBookComponent } from './guest-book/guest-book.component';
-import { MessagesComponent } from './guest-book/messages/messages.component';
-import { MessageComponent } from './guest-book/messages/message/message.component';
-import { AddMessageComponent } from './guest-book/add-message/add-message.component';
-import { AuthorInfoDialogComponent } from './guest-book/messages/message/author-info-dialog/author-info-dialog.component';
-import { InjectNames } from '../shared/inject-names';
-import { environment } from '../core/environments/environment';
+import { GuestBookComponent } from './components/guest-book/guest-book.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { MessageComponent } from './components/message/message.component';
+import { AddMessageComponent } from './components/add-message/add-message.component';
+import { AuthorInfoDialogComponent } from './components/author-info-dialog/author-info-dialog.component';
+import { FeatureNames } from '../../shared/feature-names';
+import { SharedModule } from '../../shared/shared.module';
+import { InjectNames } from '../../shared/inject-names';
+import { environment } from '../../core/environments/environment';
 
 @NgModule({
   declarations: [

@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 
 import { FilterPipe } from '../shared/pipes/filter.pipe';
-import { ErrorComponent } from '../shared/error/error.component';
+import { ErrorComponent } from './components/error/error.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderByPipe } from './pipes/orderBy.pipe';

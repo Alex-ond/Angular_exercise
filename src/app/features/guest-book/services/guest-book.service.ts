@@ -1,8 +1,8 @@
 import { map, Observable } from "rxjs";
 import { Message } from "../models/message";
 import { Inject, Injectable } from "@angular/core";
-import { InjectNames } from "../../shared/inject-names";
 import { HttpClient } from "@angular/common/http";
+import { InjectNames } from "../../../shared/inject-names";
 
 type apiMessage = {
     message: string, 
