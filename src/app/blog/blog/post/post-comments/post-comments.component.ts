@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
 import * as Selectors from '../../../store/blog.selectors';
 import { BlogState } from '../../../store/blog.state';
 import { fetchPostCommentsByPostId } from '../../../store/blog.actions';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-post-comments',
@@ -12,26 +12,19 @@ import { fetchPostCommentsByPostId } from '../../../store/blog.actions';
   styleUrl: './post-comments.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PostCommentsComponent implements OnInit, OnDestroy{
+export class PostCommentsComponent implements OnInit {
   postComments$ = this.store.select(Selectors.postCommentsSelector);
   isLoading$ = this.store.select(Selectors.isPostCommentsLoadingSelector);
   errorMessage$ = this.store.select(Selectors.postCommentsFetchingErrorMessageSelector);
 
-  paramsSubscription?: Subscription;
-
-  constructor(private store: Store<BlogState>, private route: ActivatedRoute) {}
+  constructor(private store: Store<BlogState>, private route: ActivatedRoute, private destroyRef: DestroyRef) {}
 
   ngOnInit(): void {    
-    this.paramsSubscription = this.route.params
-      .subscribe(
+      this.route.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(
         (params: Params) => {
           const postId = +params['id'];
           this.store.dispatch(fetchPostCommentsByPostId(postId));
         }
       );
-  }
-
-  ngOnDestroy() {
-    this.paramsSubscription?.unsubscribe();
   }
 }

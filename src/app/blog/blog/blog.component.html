@@ -16,7 +16,7 @@
     <div 
         *ngFor="let post of posts$ 
             | async 
-            | filter:filterValue.value:['title'] 
+            | filter:filterValue.value:'title'
             | orderBy:orderValue.value:'id'">
         <app-post [post]="post"></app-post>
     </div>

@@ -8,8 +8,7 @@ export const blogReducer = createReducer<BlogState>(
         return { 
             ...state, 
             isPostsLoading: true, 
-            postsFetchingErrorMessage: '', 
-            posts: [] };
+            postsFetchingErrorMessage: ''};
     }),
     on(BlogActions.fetchPostsSuccess, (state, action) => {
         return { 

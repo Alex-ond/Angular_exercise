@@ -5,14 +5,26 @@ import { Pipe, PipeTransform } from "@angular/core";
     pure: false
   })
   export class OrderByPipe implements PipeTransform {  
-    transform(entities: any[], direction: 'asc' | 'desc', propName: string): any[] {
-        if (entities.length === 0) {
-            return entities;
+    transform<O extends object, K extends keyof O>(
+      entities: O[] | null, 
+      direction: 'asc' | 'desc', 
+      propertyName: K): O[] {
+
+      if(!entities) {
+        return [];
+      }
+      if (entities.length === 0) {
+        return entities;
+      }
+      return entities.toSorted((a, b) => {
+        const aPropertyValue = a[propertyName];
+        const bPropertyValue = b[propertyName];
+        if (typeof aPropertyValue === 'number' && typeof bPropertyValue === 'number') {
+          return direction === "asc" ? aPropertyValue - bPropertyValue : bPropertyValue - aPropertyValue;
         }
-        return entities.toSorted((a, b) => 
-            direction === "asc" ? 
-                a[propName] - b[propName] : 
-                b[propName] - a[propName]);
+        return 0;        
+      });        
+
     }
   }
   

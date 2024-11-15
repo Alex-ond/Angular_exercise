@@ -23,7 +23,6 @@ import { BlogComponent } from './blog/blog.component';
 import { PostCommentsComponent } from './blog/post/post-comments/post-comments.component';
 import { PostComponent } from './blog/post/post.component';
 import { PostCommentComponent } from './blog/post/post-comments/post-comment/post-comment.component';
-import { OrderByPipe } from '../shared/pipes/orderBy.pipe';
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -31,8 +30,7 @@ import { environment } from '../environments/environment';
     BlogComponent, 
     PostCommentsComponent,
     PostComponent,
-    PostCommentComponent,
-    OrderByPipe
+    PostCommentComponent
   ],
   imports: [
     BrowserModule,

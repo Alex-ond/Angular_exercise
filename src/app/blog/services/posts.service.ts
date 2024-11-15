@@ -27,11 +27,9 @@ export class PostsService {
                 users.forEach(user => {
                     userMap.set(user.id, user.username);
                 });                
-                const result: Post[] = [];
-                posts.forEach(post => {
-                    result.push({...post, username: userMap.get(post.userId)});
-                });
-                return result;
+                return posts.map(post => {
+                    return {...post, username: userMap.get(post.userId)};
+                });          
             })
         );
     }
