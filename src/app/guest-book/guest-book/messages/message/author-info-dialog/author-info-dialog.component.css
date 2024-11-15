@@ -1,0 +1,10 @@
+.propertyValue {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.closeButton {
+    float: right;
+    font-size: 0.8rem;
+}
+
