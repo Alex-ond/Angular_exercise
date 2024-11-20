@@ -16,9 +16,9 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { BlogEffects } from './store/blog.effects';
 import { blogReducer } from './store/blog.reducer';
-import { FeatureNames } from '../../shared/feature-names';
+import { FeatureNames } from '../../core/feature-names';
 import { SharedModule } from '../../shared/shared.module';
-import { InjectNames } from '../../shared/inject-names';
+import { InjectNames } from '../../core/inject-names';
 import { environment } from '../../core/environments/environment';
 import { BlogComponent } from './components/blog/blog.component';
 import { PostCommentsComponent } from './components/post-comments/post-comments.component';
@@ -52,6 +52,9 @@ import { PostCommentComponent } from './components/post-comment/post-comment.com
   providers: [
     {
       provide: InjectNames.BlogBaseApiUrl, useValue: environment.blogBaseApiUrl
+    },
+    {
+      provide: InjectNames.PostRatingApiUrl, useValue: environment.postRatingApiUrl
     }
   ]
 })

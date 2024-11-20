@@ -8,23 +8,25 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { FilterPipe } from '../shared/pipes/filter.pipe';
 import { ErrorComponent } from './components/error/error.component';
+import { RatingComponent } from './components/rating/rating.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 
 @NgModule({
-    declarations: [    
+    declarations: [
         FilterPipe,
         OrderByPipe,
-        ErrorComponent
+        ErrorComponent,
+        RatingComponent
     ],
     exports: [
         FilterPipe,
         OrderByPipe,
-        ErrorComponent
+        ErrorComponent,
+        RatingComponent
     ],
-    imports: 
-    [
+    imports: [
         MatCardModule,
         MatProgressBarModule,
         MatButton,
@@ -36,4 +38,4 @@ import { OrderByPipe } from './pipes/orderBy.pipe';
     ],
     providers: []
 })
-export class SharedModule {}
+export class SharedModule { }

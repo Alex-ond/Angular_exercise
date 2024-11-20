@@ -9,8 +9,8 @@ describe('AuthorInfoDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AuthorInfoDialogComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(AuthorInfoDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

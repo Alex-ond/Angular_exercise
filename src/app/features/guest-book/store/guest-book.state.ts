@@ -1,7 +1,6 @@
-import { AppState } from "../../../core/store/app.state";
 import { Message } from "../models/message";
 
-export interface GuestBookState extends AppState{
+export interface GuestBookState {
     messages: Message[],
     isMessagesLoading: boolean,
     messagesFetchingErrorMessage: string,

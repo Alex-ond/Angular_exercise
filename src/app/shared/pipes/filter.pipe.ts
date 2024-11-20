@@ -4,13 +4,13 @@ import { Pipe, PipeTransform } from "@angular/core";
     name: 'filter',
     pure: false
 })
-export class FilterPipe implements PipeTransform {  
+export class FilterPipe implements PipeTransform {
     transform<O extends object, K extends keyof O>(
-        entities: O[] | null, 
-        filterString: string, 
+        entities: O[] | null,
+        filterString: string,
         propertyName: K): O[] {
 
-        if(!entities) {
+        if (!entities) {
             return [];
         }
         if (entities.length === 0 || filterString === '') {
@@ -18,7 +18,7 @@ export class FilterPipe implements PipeTransform {
         }
         return entities.filter(entity => {
             const propertyValue = entity[propertyName];
-            return typeof propertyValue === 'string' && propertyValue.indexOf(filterString) > -1;        
-        });                
+            return typeof propertyValue === 'string' && propertyValue.indexOf(filterString) > -1;
+        });
     }
 }

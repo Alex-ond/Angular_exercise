@@ -13,17 +13,17 @@ import { AuthorInfoDialogComponent } from '../author-info-dialog/author-info-dia
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessageComponent {
-  @Input({required: true})
+  @Input({ required: true })
   message!: Message;
   readonly dialog = inject(MatDialog);
 
-  constructor(private store: Store<GuestBookState>) {}
+  constructor(private store: Store<GuestBookState>) { }
 
-  openAuthorInfoDialog(messageId: string) {    
+  openAuthorInfoDialog(messageId: string) {
     this.store.dispatch(selectMessage(messageId));
-    this.dialog.open(AuthorInfoDialogComponent, 
+    this.dialog.open(AuthorInfoDialogComponent,
       {
-        height: '300px', 
+        height: '300px',
         width: '450px'
       });
   }

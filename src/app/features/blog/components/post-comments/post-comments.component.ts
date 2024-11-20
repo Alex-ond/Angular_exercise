@@ -5,6 +5,7 @@ import * as Selectors from '../../store/blog.selectors';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BlogState } from '../../store/blog.state';
 import { fetchPostCommentsByPostId } from '../../store/blog.actions';
+import { PostComment } from '../../models/post-comment';
 
 @Component({
   selector: 'app-post-comments',
@@ -17,14 +18,18 @@ export class PostCommentsComponent implements OnInit {
   isLoading$ = this.store.select(Selectors.isPostCommentsLoadingSelector);
   errorMessage$ = this.store.select(Selectors.postCommentsFetchingErrorMessageSelector);
 
-  constructor(private store: Store<BlogState>, private route: ActivatedRoute, private destroyRef: DestroyRef) {}
+  constructor(private store: Store<BlogState>, private route: ActivatedRoute, private destroyRef: DestroyRef) { }
 
-  ngOnInit(): void {    
-      this.route.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(
-        (params: Params) => {
-          const postId = +params['id'];
-          this.store.dispatch(fetchPostCommentsByPostId(postId));
-        }
-      );
+  ngOnInit(): void {
+    this.route.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(
+      (params: Params) => {
+        const postId = +params['id'];
+        this.store.dispatch(fetchPostCommentsByPostId(postId));
+      }
+    );
+  }
+
+  trackByFn(_: number, postComment: PostComment) {
+    return postComment.id;
   }
 }

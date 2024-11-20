@@ -7,7 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class ErrorComponent {
   @Input()
-  errorMessage: string | null = ''
+  errorMessage: string = ''
+
   @Input()
   errorDetails = ''
 }

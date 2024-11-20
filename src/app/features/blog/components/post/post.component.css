@@ -1,4 +1,28 @@
 a {
-    color: black;
-    font-size: 0.9rem;
+  color: black;
+  font-size: 0.9rem;
+}
+
+.title {
+  display: flex;
+}
+
+.readonlyRating {
+  display: flex;
+  align-items: center;
+  padding-left: 0.2rem;
+}
+
+.ratingContainer {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 0.4rem;
+}
+
+.ratingButton {
+  font-size: 0.65rem;
+  margin-left: 0.2rem;
+  margin-top: 0rem;
+  height: 30px;
 }

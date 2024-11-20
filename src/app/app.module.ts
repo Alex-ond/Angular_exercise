@@ -24,17 +24,16 @@ import { GuestBookModule } from './features/guest-book/guest-book.module';
     StoreDevtoolsModule.instrument(
       {
         maxAge: 25,
-        name: 'Blog App Devtools'        
+        name: 'Blog App Devtools'
       }
     ),
     AppRoutingModule,
     BlogModule,
     GuestBookModule
-],
+  ],
   providers: [
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
- 
+export class AppModule { }

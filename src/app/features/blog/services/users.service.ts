@@ -1,20 +1,20 @@
-import { HttpClient } from "@angular/common/http";
-import { Inject, Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { User } from "../models/user";
-import { InjectNames } from "../../../shared/inject-names";
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from '../models/user';
+import { InjectNames } from '../../../core/inject-names';
 
-@Injectable({ providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class UsersService {
-    constructor (
-        @Inject(InjectNames.BlogBaseApiUrl) private baseUrl: string, 
-        private http: HttpClient) {}
+    constructor(
+        @Inject(InjectNames.BlogBaseApiUrl) private baseUrl: string,
+        private http: HttpClient) { }
 
-    fetchUsers(): Observable<User[]> {        
+    fetchUsers(): Observable<User[]> {
         return this.http.get<
-        {
-            id: number, 
-            username: string
-        }[]>(`${this.baseUrl}/users`);
-    }        
+            {
+                id: number,
+                username: string
+            }[]>(`${this.baseUrl}/users`);
+    }
 }

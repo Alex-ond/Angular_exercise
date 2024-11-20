@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as Selectors from '../../store/guest-book.selectors'
 import { GuestBookState } from '../../store/guest-book.state';
 import { fetchMessages } from '../../store/guest-book.actions';
+import { Message } from '../../models/message';
 
 @Component({
   selector: 'app-messages',
@@ -17,5 +18,9 @@ export class MessagesComponent {
 
   constructor(private store: Store<GuestBookState>) {
     this.store.dispatch(fetchMessages());
+  }
+
+  trackByFn(_: number, message: Message) {
+    return message.id;
   }
 }

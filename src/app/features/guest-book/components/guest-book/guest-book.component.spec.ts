@@ -10,8 +10,8 @@ describe('GuestBookComponent', () => {
     await TestBed.configureTestingModule({
       imports: [GuestBookComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(GuestBookComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

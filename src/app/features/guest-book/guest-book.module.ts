@@ -13,15 +13,15 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { GuestBookEffects } from './store/guest-book.effects';
 import { guestBookReducer } from './store/guest-book.reducer';
-import { MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { GuestBookComponent } from './components/guest-book/guest-book.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { MessageComponent } from './components/message/message.component';
 import { AddMessageComponent } from './components/add-message/add-message.component';
 import { AuthorInfoDialogComponent } from './components/author-info-dialog/author-info-dialog.component';
-import { FeatureNames } from '../../shared/feature-names';
+import { FeatureNames } from '../../core/feature-names';
 import { SharedModule } from '../../shared/shared.module';
-import { InjectNames } from '../../shared/inject-names';
+import { InjectNames } from '../../core/inject-names';
 import { environment } from '../../core/environments/environment';
 
 @NgModule({
@@ -48,11 +48,11 @@ import { environment } from '../../core/environments/environment';
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule
-],
-  providers: [    
+  ],
+  providers: [
     {
       provide: InjectNames.GuestBookApiUrl, useValue: environment.guestBookApiUrl
     }
   ]
 })
-export class GuestBookModule {}
+export class GuestBookModule { }

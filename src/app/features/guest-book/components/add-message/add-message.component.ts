@@ -12,30 +12,30 @@ import * as Selectors from '../../store/guest-book.selectors'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddMessageComponent {
-  errorMessage$ = this.store.select(Selectors.messageAddingErrorMessage);  
-  form  = new FormGroup({
+  errorMessage$ = this.store.select(Selectors.messageAddingErrorMessage);
+  form = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.email),
     message: new FormControl('', [Validators.required, Validators.minLength(20)])
   });
 
-  constructor(private store: Store<GuestBookState>) {}
+  constructor(private store: Store<GuestBookState>) { }
 
   onSubmit() {
     const message = this.getMessage();
     this.store.dispatch(addMessage(message));
-    this.form.reset();  
+    this.form.reset();
   }
 
   private getMessage() {
     var rawValue = this.form.getRawValue();
-    return { 
+    return {
       id: '',
       message: rawValue.message!,
       author: {
         name: rawValue.name!,
         email: rawValue.email
-      }      
+      }
     };
   }
 }

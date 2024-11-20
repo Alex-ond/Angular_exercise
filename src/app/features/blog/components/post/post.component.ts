@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Post } from '../../models/post';
+import { Store } from '@ngrx/store';
+import { BlogState } from '../../store/blog.state';
+import { vote } from '../../store/blog.actions';
 
 @Component({
   selector: 'app-post',
@@ -8,10 +11,16 @@ import { Post } from '../../models/post';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostComponent {
-  @Input({required: true}) 
+  @Input({ required: true })
   post!: Post;
 
-  createCommentsUrl(postId: number) : string {
+  constructor(private store: Store<BlogState>) { }
+
+  createCommentsUrl(postId: number): string {
     return `/blog/${postId}/comments`;
+  }
+
+  onVote(postId: number, rating: number) {
+    this.store.dispatch(vote({ postId, rating }));
   }
 }

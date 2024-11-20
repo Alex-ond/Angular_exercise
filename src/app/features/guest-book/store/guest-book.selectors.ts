@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { GuestBookState } from "./guest-book.state";
-import { FeatureNames } from "../../../shared/feature-names";
+import { FeatureNames } from "../../../core/feature-names";
 
 const getFeatureState = createFeatureSelector<GuestBookState>(FeatureNames.GuestBook);
 

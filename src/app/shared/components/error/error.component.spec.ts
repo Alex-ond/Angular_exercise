@@ -9,8 +9,8 @@ describe('ErrorComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ErrorComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ErrorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

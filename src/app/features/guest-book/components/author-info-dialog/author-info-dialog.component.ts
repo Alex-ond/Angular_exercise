@@ -12,5 +12,5 @@ import { GuestBookState } from '../../store/guest-book.state';
 export class AuthorInfoDialogComponent {
   author$ = this.store.select(Selectors.selectedMessageAuthorSelector);
 
-  constructor(private store: Store<GuestBookState>) {}
+  constructor(private store: Store<GuestBookState>) { }
 }
