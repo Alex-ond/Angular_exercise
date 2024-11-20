@@ -4,6 +4,6 @@ export type Post = {
     username?: string,
     title: string,
     body: string,
-    rating?: number,
-    voted?: boolean
+    rating: number,
+    voted: boolean
 }

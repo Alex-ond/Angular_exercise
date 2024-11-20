@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import * as Selectors from '../../store/blog.selectors';
 import { BlogState } from '../../store/blog.state';
 import { fetchPosts } from '../../store/blog.actions';
-import { Post } from '../../models/post';
 
 @Component({
   selector: 'app-blog',
@@ -20,9 +19,5 @@ export class BlogComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(fetchPosts());
-  }
-
-  trackByFn(_: number, post: Post) {
-    return post.id;
   }
 }

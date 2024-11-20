@@ -11,19 +11,14 @@
     </mat-select>
   </mat-form-field>
 </div>
+
 <div *ngIf="!(isLoading$ | async); else isLoading">
-  <div
-    *ngFor="
-      let post of posts$
-        | async
-        | filter : filterValue.value : 'title'
-        | orderBy : orderValue.value : 'id';
-      trackBy: trackByFn
-    "
-  >
-    <app-post [post]="post"></app-post>
-  </div>
+  @for (post of posts$ | async | filter : filterValue.value : 'title' | orderBy
+  : orderValue.value : 'id'; track post.id) {
+  <app-post [post]="post"></app-post>
+  }
 </div>
+
 <ng-template #isLoading>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-template>

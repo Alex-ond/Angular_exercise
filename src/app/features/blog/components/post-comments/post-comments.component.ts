@@ -5,7 +5,6 @@ import * as Selectors from '../../store/blog.selectors';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BlogState } from '../../store/blog.state';
 import { fetchPostCommentsByPostId } from '../../store/blog.actions';
-import { PostComment } from '../../models/post-comment';
 
 @Component({
   selector: 'app-post-comments',
@@ -27,9 +26,5 @@ export class PostCommentsComponent implements OnInit {
         this.store.dispatch(fetchPostCommentsByPostId(postId));
       }
     );
-  }
-
-  trackByFn(_: number, postComment: PostComment) {
-    return postComment.id;
   }
 }

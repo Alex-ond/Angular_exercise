@@ -24,6 +24,7 @@ import { BlogComponent } from './components/blog/blog.component';
 import { PostCommentsComponent } from './components/post-comments/post-comments.component';
 import { PostComponent } from './components/post/post.component';
 import { PostCommentComponent } from './components/post-comment/post-comment.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { PostCommentComponent } from './components/post-comment/post-comment.com
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    CommonModule
 ],
   providers: [
     {

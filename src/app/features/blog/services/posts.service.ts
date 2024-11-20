@@ -23,7 +23,7 @@ export class PostsService {
                 title: string,
                 body: string
             }[]>(`${this.baseUrl}/posts`).pipe(
-                combineLatestWith(this.usersService.fetchUsers(), this.ratingService.fetchRatings()),
+                combineLatestWith(this.usersService.fetchUsers(), this.ratingService.fetchRatingMap()),
                 map(([posts, users, ratingMap]) => {
                     const userMap = new Map<number, string>();
                     users.forEach(user => {
@@ -34,7 +34,8 @@ export class PostsService {
                         return {
                             ...post,
                             username: userMap.get(post.userId),
-                            rating: RatingService.calculateAverageRating(postRating)
+                            rating: postRating?.averageRating ?? 0,
+                            voted: postRating?.voted ?? false
                         };
                     });
                 })

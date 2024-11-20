@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Post } from '../models/post';
 import { PostComment } from '../models/post-comment';
-import { Vote } from '../models/vote';
 
 enum BlogActionTypes {
     FetchPosts = '[BLog Page] Fetch posts',
@@ -25,6 +24,6 @@ export const fetchPostCommentsByPostId = createAction(BlogActionTypes.FetchPostC
 export const fetchPostCommentsByPostIdSuccess = createAction(BlogActionTypes.FetchPostCommentsByPostIdSuccess, props<{ comments: PostComment[] }>());
 export const fetchPostCommentsByPostIdFailure = createAction(BlogActionTypes.FetchPostCommentsByPostIdFailure, props<{ errorMessage: string }>());
 
-export const vote = createAction(BlogActionTypes.Vote, (vote: Vote) => ({ vote: vote }))
+export const vote = createAction(BlogActionTypes.Vote, (postId: number, rating: number) => ({postId, rating }))
 export const voteSuccess = createAction(BlogActionTypes.VoteSuccess, props<{ postId: number, averageRating: number }>());
 export const voteFailure = createAction(BlogActionTypes.VoteFailure, props<{ errorMessage: string }>());

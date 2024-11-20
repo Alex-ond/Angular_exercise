@@ -21,6 +21,6 @@ export class PostComponent {
   }
 
   onVote(postId: number, rating: number) {
-    this.store.dispatch(vote({ postId, rating }));
+    this.store.dispatch(vote(postId, rating));
   }
 }

@@ -51,7 +51,7 @@ export const blogReducer = createReducer<BlogState>(
     }),
     //vote
     on(BlogActions.vote, (state, action) => {
-        const updatedPosts = state.posts.map(post => action.vote.postId === post.id ? { ...post, voted: true } : post);
+        const updatedPosts = state.posts.map(post => action.postId === post.id ? { ...post, voted: true } : post);
         return {
             ...state,
             posts: updatedPosts

@@ -42,7 +42,7 @@ export class BlogEffects {
         this.actions$.pipe(
             ofType(BlogActions.vote),
             switchMap(action =>
-                this.ratingService.vote(action.vote).pipe(
+                this.ratingService.vote(action.postId, action.rating).pipe(
                     map(postRating => BlogActions.voteSuccess({ postId: postRating.postId, averageRating: postRating.averageRating })),
                     catchError((error: Error) => of(BlogActions.voteFailure({ errorMessage: error.message }))
                     )))));

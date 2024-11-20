@@ -19,7 +19,7 @@ export class GuestBookService {
 
     fetchMessages() {
         return this.http.get<{ [key: string]: apiMessage }>(this.url).pipe(
-            map((response) => {
+            map(response => {
                 if (!response) {
                     return [];
                 }

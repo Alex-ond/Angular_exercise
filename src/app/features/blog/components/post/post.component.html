@@ -4,7 +4,7 @@
       >{{ post.title }}
       <app-rating
         ngClass="readonlyRating"
-        *ngIf="post.rating! > 0"
+        *ngIf="post.rating > 0"
         [value]="post.rating"
         [readonly]="true"
         size="small"
@@ -14,6 +14,7 @@
         <app-rating ngClass="ratingControl" #rating></app-rating>
         <button
           ngClass="ratingButton"
+          [disabled]="!rating.value"
           mat-stroked-button
           (click)="onVote(post.id, rating.value!)"
         >
