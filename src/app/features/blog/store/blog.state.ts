@@ -1,5 +1,5 @@
-import { PostComment } from "../models/post-comment";
-import { Post } from "../models/post";
+import { PostComment } from '../models/post-comment';
+import { Post } from '../models/post';
 
 export interface BlogState {
     posts: Post[],

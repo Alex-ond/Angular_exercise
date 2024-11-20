@@ -1,6 +1,6 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { BlogState } from "./blog.state";
-import { FeatureNames } from "../../../core/feature-names";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { BlogState } from './blog.state';
+import { FeatureNames } from '../../../core/feature-names';
 
 const getFeatureState = createFeatureSelector<BlogState>(FeatureNames.Blog);
 

@@ -1,7 +1,7 @@
-import { createAction, props } from "@ngrx/store";
-import { Post } from "../models/post";
-import { PostComment } from "../models/post-comment";
-import { Vote } from "../models/vote";
+import { createAction, props } from '@ngrx/store';
+import { Post } from '../models/post';
+import { PostComment } from '../models/post-comment';
+import { Vote } from '../models/vote';
 
 enum BlogActionTypes {
     FetchPosts = '[BLog Page] Fetch posts',
