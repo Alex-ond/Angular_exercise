@@ -1,4 +1,4 @@
-import { Author } from "./author"
+import { Author } from './author'
 
 export type Message = {
     id: string,

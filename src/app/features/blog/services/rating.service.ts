@@ -3,14 +3,14 @@ import { map, mergeMap, Observable, tap } from 'rxjs';
 import { InjectNames } from '../../../core/inject-names';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-type apiVotes = {
-    [key: string]: apiVote
+type PostRatings = {
+    [key: string]: PostRating
 }
 
-type apiVote = {
+type PostRating = {
     postId: number,
     ratingSum: number,
-    voteCount: number
+    voteNumber: number
 }
 
 const votedPostIdsKey = 'votedPostIds';
@@ -31,37 +31,47 @@ export class RatingService {
             }
         });
 
-        return this.http.get<apiVotes>(this.url, { params: params }).pipe(
+        return this.http.get<PostRatings>(this.url, { params: params }).pipe(
             map(response => {
                 if (!response) {
                     return null
                 }
                 for (const key in response) {
-                    return { name: key, apiVote: response[key] };
+                    return {
+                        savedItemName: key,
+                        savedPostRating: response[key]
+                    };
                 }
                 return null;
             }),
-            mergeMap(getResult => {
-                if (getResult) {
-                    const apiVote: apiVote =
+            mergeMap(savedPostRatingData => {
+                if (savedPostRatingData) {
+                    const {savedItemName, savedPostRating} = savedPostRatingData;
+                    const postRating: PostRating =
                     {
-                        postId: getResult.apiVote.postId,
-                        ratingSum: getResult.apiVote.ratingSum + rating,
-                        voteCount: getResult.apiVote.voteCount + 1
+                        postId: savedPostRating.postId,
+                        ratingSum: savedPostRating.ratingSum + rating,
+                        voteNumber: savedPostRating.voteNumber + 1
                     };
-                    return this.updateVote(getResult.name, apiVote).pipe(map(() => {
-                        return { postId: apiVote.postId, averageRating: RatingService.calculateAverageRating(apiVote) }
+                    return this.updatePostRating(savedItemName, postRating).pipe(map(() => {
+                        return {
+                            postId: postRating.postId,
+                            averageRating: RatingService.calculateAverageRating(postRating)
+                        };
                     }));
                 }
                 else {
-                    const apiVote: apiVote =
+                    const postRating: PostRating =
                     {
                         postId: postId,
                         ratingSum: rating,
-                        voteCount: 1
+                        voteNumber: 1
                     };
-                    return this.addVote(apiVote).pipe(map(() => {
-                        return { postId: apiVote.postId, averageRating: RatingService.calculateAverageRating(apiVote) }
+                    return this.addPostRating(postRating).pipe(map(() => {
+                        return {
+                            postId: postRating.postId,
+                            averageRating: RatingService.calculateAverageRating(postRating)
+                        };
                     }));
                 }
             }),
@@ -71,49 +81,55 @@ export class RatingService {
     }
 
     fetchRatingMap(): Observable<Map<number, { averageRating: number, voted: boolean }>> {
-        return this.http.get<apiVotes>(this.url).pipe(
+        return this.http.get<PostRatings>(this.url).pipe(
             map(response => {
-                const map = new Map<number, { averageRating: number, voted: boolean }>();
-                if (!response) {
-                    return map;
-                }
-                const votedPostIds = this.getVotedPostIds();
-                for (const key in response) {
-                    const apiVote = response[key];
-                    map.set(
-                        apiVote.postId,
-                        {
-                            averageRating: RatingService.calculateAverageRating(apiVote),
-                            voted: votedPostIds.indexOf(apiVote.postId) > -1
-                        });
-                }
-                return map;
+                return this.createRatingsMap(response);
             })
         );
     }
 
-    private updateVote(name: string, apiVote: apiVote) {
-        const apiVotes: apiVotes = {};
-        apiVotes[name] = apiVote;
-        return this.http.patch(this.url, apiVotes);
+    private createRatingsMap(postRatings: PostRatings)
+        : Map<number, { averageRating: number, voted: boolean }> {
+
+        const map = new Map<number, { averageRating: number, voted: boolean }>();
+        if (!postRatings) {
+            return map;
+        }
+        const votedPostIds = this.getVotedPostIdsFromLocalStorage();
+        for (const key in postRatings) {
+            const postRating = postRatings[key];
+            map.set(
+                postRating.postId,
+                {
+                    averageRating: RatingService.calculateAverageRating(postRating),
+                    voted: votedPostIds.indexOf(postRating.postId) > -1
+                });
+        }
+        return map;
     }
 
-    private addVote(apiVote: apiVote) {
-        return this.http.post(this.url, apiVote);
+    private addPostRating(postRating: PostRating) {
+        return this.http.post(this.url, postRating);
+    }
+
+    private updatePostRating(name: string, postRating: PostRating) {
+        const postRatings: PostRatings = {};
+        postRatings[name] = postRating;
+        return this.http.patch(this.url, postRatings);
     }
 
     private addVotedPostIdToLocalStorage(postId: number) {
-        let votedPostIds: number[] = this.getVotedPostIds()
+        let votedPostIds: number[] = this.getVotedPostIdsFromLocalStorage()
         votedPostIds.push(postId);
         localStorage.setItem(votedPostIdsKey, JSON.stringify(votedPostIds));
     }
 
-    private getVotedPostIds(): number[] {
-        const votedPostIdssValue = localStorage.getItem(votedPostIdsKey);
-        return votedPostIdssValue ? JSON.parse(votedPostIdssValue) : [];
+    private getVotedPostIdsFromLocalStorage(): number[] {
+        const votedPostIdsValue = localStorage.getItem(votedPostIdsKey);
+        return votedPostIdsValue ? JSON.parse(votedPostIdsValue) : [];
     }
 
-    private static calculateAverageRating(apiVote: apiVote): number {
-        return apiVote ? Math.round(apiVote.ratingSum / apiVote.voteCount) : 0;
+    private static calculateAverageRating(postRating: PostRating): number {
+        return postRating ? Math.round(postRating.ratingSum / postRating.voteNumber) : 0;
     }
 }
