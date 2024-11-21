@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { map, mergeMap, Observable, tap } from 'rxjs';
 import { InjectNames } from '../../../core/inject-names';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { LocalStorageService } from './local-storage.service';
 
 type PostRatings = {
     [key: string]: PostRating
@@ -13,14 +14,13 @@ type PostRating = {
     voteNumber: number
 }
 
-const votedPostIdsKey = 'votedPostIds';
-
 @Injectable({ providedIn: 'root' })
 export class RatingService {
 
     constructor(
         @Inject(InjectNames.PostRatingApiUrl) private url: string,
-        private http: HttpClient) { }
+        private http: HttpClient,
+        private localStorageService: LocalStorageService) { }
 
     vote(postId: number, rating: number): Observable<{ postId: number, averageRating: number }> {
 
@@ -46,7 +46,7 @@ export class RatingService {
             }),
             mergeMap(savedPostRatingData => {
                 if (savedPostRatingData) {
-                    const {savedItemName, savedPostRating} = savedPostRatingData;
+                    const { savedItemName, savedPostRating } = savedPostRatingData;
                     const postRating: PostRating =
                     {
                         postId: savedPostRating.postId,
@@ -75,8 +75,8 @@ export class RatingService {
                     }));
                 }
             }),
-            tap(result => {
-                this.addVotedPostIdToLocalStorage(result.postId);
+            tap(({ postId }) => {
+                this.localStorageService.addVotedPostId(postId);
             }));
     }
 
@@ -95,7 +95,7 @@ export class RatingService {
         if (!postRatings) {
             return map;
         }
-        const votedPostIds = this.getVotedPostIdsFromLocalStorage();
+        const votedPostIds = this.localStorageService.getVotedPostIds();
         for (const key in postRatings) {
             const postRating = postRatings[key];
             map.set(
@@ -116,17 +116,6 @@ export class RatingService {
         const postRatings: PostRatings = {};
         postRatings[name] = postRating;
         return this.http.patch(this.url, postRatings);
-    }
-
-    private addVotedPostIdToLocalStorage(postId: number) {
-        let votedPostIds: number[] = this.getVotedPostIdsFromLocalStorage()
-        votedPostIds.push(postId);
-        localStorage.setItem(votedPostIdsKey, JSON.stringify(votedPostIds));
-    }
-
-    private getVotedPostIdsFromLocalStorage(): number[] {
-        const votedPostIdsValue = localStorage.getItem(votedPostIdsKey);
-        return votedPostIdsValue ? JSON.parse(votedPostIdsValue) : [];
     }
 
     private static calculateAverageRating(postRating: PostRating): number {
