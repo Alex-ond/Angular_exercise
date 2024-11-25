@@ -4,12 +4,16 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { InjectNames } from '../../../core/inject-names';
 
-type apiMessage = {
+export type ApiMessage = {
     message: string,
     author: {
         name: string,
         email: string | null
     }
+}
+
+export type ApiMessages = {
+    [key: string]: ApiMessage
 }
 
 @Injectable({ providedIn: 'root' })
@@ -18,7 +22,7 @@ export class GuestBookService {
     constructor(@Inject(InjectNames.GuestBookApiUrl) private url: string, private http: HttpClient) { }
 
     fetchMessages() {
-        return this.http.get<{ [key: string]: apiMessage }>(this.url).pipe(
+        return this.http.get<ApiMessages>(this.url).pipe(
             map(response => {
                 if (!response) {
                     return [];
@@ -34,7 +38,7 @@ export class GuestBookService {
     }
 
     addMessage(message: Message): Observable<Message> {
-        const request: apiMessage =
+        const request: ApiMessage =
         {
             message: message.message,
             author: {

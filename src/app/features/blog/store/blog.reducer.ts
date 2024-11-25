@@ -39,7 +39,7 @@ export const blogReducer = createReducer<BlogState>(
         return {
             ...state,
             isPostCommentsLoading: false,
-            postComments: action.comments
+            postComments: action.postComments
         };
     }),
     on(BlogActions.fetchPostCommentsByPostIdFailure, (state, action) => {

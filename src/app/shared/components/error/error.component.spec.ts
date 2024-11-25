@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ErrorComponent } from './error.component';
+import { MatCardModule } from '@angular/material/card';
+import { getInnerText, queryByCss } from '../../../core/test-utils.spec';
 
 describe('ErrorComponent', () => {
   let component: ErrorComponent;
@@ -7,16 +9,28 @@ describe('ErrorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ErrorComponent]
+      declarations: [ErrorComponent],
+      imports: [MatCardModule]
     })
       .compileComponents();
 
     fixture = TestBed.createComponent(ErrorComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should show subtitle with errorMessage', () => {
+    component.errorMessage = 'testSubTitle';
+    fixture.detectChanges();
+    
+    const element = queryByCss(fixture, 'mat-card-subtitle');
+    expect(getInnerText(element)).toBe('testSubTitle');
+  });
+
+  it('should show content with errorDetails', () => {
+    component.errorDetails = 'testContent'
+    fixture.detectChanges();
+
+    const element = queryByCss(fixture, 'mat-card-content');
+    expect(getInnerText(element)).toBe('testContent');
   });
 });

@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   selector: 'app-rating',
   templateUrl: './rating.component.html',
   styleUrl: './rating.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RatingComponent {
   @Input()
@@ -19,14 +19,14 @@ export class RatingComponent {
   @Input()
   size: 'normal' | 'small' = 'normal';
 
-  onClick(index: number) {
+  onClick(index: number) {   
     if (this.readonly) {
       return;
-    }
+    }    
     this.value = index + 1;
   }
 
-  getIcon(index: number): 'star' | 'star_border' {
+  getIcon(index: number): 'star' | 'star_border' {    
     if (!this.value) {
       return 'star_border';
     }

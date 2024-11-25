@@ -35,7 +35,6 @@ export const guestBookReducer = createReducer<GuestBookState>(
     on(BlogActions.addMessageSuccess, (state, action) => {
         const messages = [...state.messages];        
         messages.push(action.message);
-        console.log(messages);
         return { 
             ...state, 
             isMessageAdding: false,

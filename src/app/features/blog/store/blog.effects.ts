@@ -34,7 +34,7 @@ export class BlogEffects {
             ofType(BlogActions.fetchPostCommentsByPostId),
             switchMap(action =>
                 this.postsService.fetchPostCommentsByPostId(action.postId).pipe(
-                    map(comments => BlogActions.fetchPostCommentsByPostIdSuccess({ comments })),
+                    map(postComments => BlogActions.fetchPostCommentsByPostIdSuccess({ postComments })),
                     catchError((error: Error) => of(BlogActions.fetchPostCommentsByPostIdFailure({ errorMessage: error.message }))
                     )))));
 

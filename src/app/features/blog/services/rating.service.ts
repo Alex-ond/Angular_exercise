@@ -4,14 +4,19 @@ import { InjectNames } from '../../../core/inject-names';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { LocalStorageService } from './local-storage.service';
 
-type PostRatings = {
-    [key: string]: PostRating
+export type ApiPostRatings = {
+    [key: string]: ApiPostRating
 }
 
-type PostRating = {
+export type ApiPostRating = {
     postId: number,
     ratingSum: number,
     voteNumber: number
+}
+
+export type PostRating = {
+    averageRating: number,
+    voted: boolean
 }
 
 @Injectable({ providedIn: 'root' })
@@ -31,7 +36,7 @@ export class RatingService {
             }
         });
 
-        return this.http.get<PostRatings>(this.url, { params: params }).pipe(
+        return this.http.get<ApiPostRatings>(this.url, { params: params }).pipe(
             map(response => {
                 if (!response) {
                     return null
@@ -47,7 +52,7 @@ export class RatingService {
             mergeMap(savedPostRatingData => {
                 if (savedPostRatingData) {
                     const { savedItemName, savedPostRating } = savedPostRatingData;
-                    const postRating: PostRating =
+                    const postRating: ApiPostRating =
                     {
                         postId: savedPostRating.postId,
                         ratingSum: savedPostRating.ratingSum + rating,
@@ -61,7 +66,7 @@ export class RatingService {
                     }));
                 }
                 else {
-                    const postRating: PostRating =
+                    const postRating: ApiPostRating =
                     {
                         postId: postId,
                         ratingSum: rating,
@@ -80,18 +85,18 @@ export class RatingService {
             }));
     }
 
-    fetchRatingMap(): Observable<Map<number, { averageRating: number, voted: boolean }>> {
-        return this.http.get<PostRatings>(this.url).pipe(
+    fetchRatingMap(): Observable<Map<number, PostRating>> {
+        return this.http.get<ApiPostRatings>(this.url).pipe(
             map(response => {
                 return this.createRatingsMap(response);
             })
         );
     }
 
-    private createRatingsMap(postRatings: PostRatings)
-        : Map<number, { averageRating: number, voted: boolean }> {
+    private createRatingsMap(postRatings: ApiPostRatings)
+        : Map<number, PostRating> {
 
-        const map = new Map<number, { averageRating: number, voted: boolean }>();
+        const map = new Map<number, PostRating>();
         if (!postRatings) {
             return map;
         }
@@ -108,17 +113,17 @@ export class RatingService {
         return map;
     }
 
-    private addPostRating(postRating: PostRating) {
+    private addPostRating(postRating: ApiPostRating) {
         return this.http.post(this.url, postRating);
     }
 
-    private updatePostRating(name: string, postRating: PostRating) {
-        const postRatings: PostRatings = {};
+    private updatePostRating(name: string, postRating: ApiPostRating) {
+        const postRatings: ApiPostRatings = {};
         postRatings[name] = postRating;
         return this.http.patch(this.url, postRatings);
     }
 
-    private static calculateAverageRating(postRating: PostRating): number {
+    private static calculateAverageRating(postRating: ApiPostRating): number {
         return postRating ? Math.round(postRating.ratingSum / postRating.voteNumber) : 0;
     }
 }

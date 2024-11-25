@@ -1,7 +1,8 @@
 <mat-card ngClass="card" appearance="outlined">
   <mat-card-header>
     <mat-card-title ngClass="title"
-      >{{ post.title }}
+      >
+      <span>{{ post.title }}</span>
       <app-rating
         ngClass="readonlyRating"
         *ngIf="post.rating > 0"

@@ -15,7 +15,7 @@ export class OrderByPipe implements PipeTransform {
     }
     if (entities.length === 0) {
       return entities;
-    }
+    }    
     return entities.toSorted((a, b) => {
       const aPropertyValue = a[propertyName];
       const bPropertyValue = b[propertyName];

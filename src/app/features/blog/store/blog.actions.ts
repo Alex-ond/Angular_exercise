@@ -21,7 +21,7 @@ export const fetchPostsSuccess = createAction(BlogActionTypes.FetchPostsSuccess,
 export const fetchPostsFailure = createAction(BlogActionTypes.FetchPostsFailure, props<{ errorMessage: string }>());
 
 export const fetchPostCommentsByPostId = createAction(BlogActionTypes.FetchPostCommentsByPostId, (postId: number) => ({ postId }))
-export const fetchPostCommentsByPostIdSuccess = createAction(BlogActionTypes.FetchPostCommentsByPostIdSuccess, props<{ comments: PostComment[] }>());
+export const fetchPostCommentsByPostIdSuccess = createAction(BlogActionTypes.FetchPostCommentsByPostIdSuccess, props<{ postComments: PostComment[] }>());
 export const fetchPostCommentsByPostIdFailure = createAction(BlogActionTypes.FetchPostCommentsByPostIdFailure, props<{ errorMessage: string }>());
 
 export const vote = createAction(BlogActionTypes.Vote, (postId: number, rating: number) => ({postId, rating }))

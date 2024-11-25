@@ -32,4 +32,4 @@ export const isPostCommentsLoadingSelector = createSelector(
 export const postCommentsFetchingErrorMessageSelector = createSelector(
   getFeatureState,
   state => state.postCommentsFetchingErrorMessage
-)    
+)

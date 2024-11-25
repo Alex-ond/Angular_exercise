@@ -7,9 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
@@ -34,8 +32,6 @@ import { CommonModule } from '@angular/common';
     PostCommentComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
     HttpClientModule,
     RouterModule,
     StoreModule.forFeature(FeatureNames.Blog, blogReducer),

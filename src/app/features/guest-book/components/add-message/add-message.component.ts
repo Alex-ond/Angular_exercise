@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { GuestBookState } from '../../store/guest-book.state';
 import { addMessage } from '../../store/guest-book.actions';
@@ -13,18 +13,19 @@ import * as Selectors from '../../store/guest-book.selectors'
 })
 export class AddMessageComponent {
   errorMessage$ = this.store.select(Selectors.messageAddingErrorMessage);
-  form = new FormGroup({
-    name: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.email),
-    message: new FormControl('', [Validators.required, Validators.minLength(20)])
+  form = this.formBuilder.group({
+    name: this.formBuilder.control('', Validators.required),
+    email: this.formBuilder.control('', Validators.email),
+    message: this.formBuilder.control('', [Validators.required, Validators.minLength(20)])
   });
 
-  constructor(private store: Store<GuestBookState>) { }
+  constructor(private store: Store<GuestBookState>, private formBuilder: FormBuilder) { }
 
   onSubmit() {
+    this.formBuilder.control
     const message = this.getMessage();
     this.store.dispatch(addMessage(message));
-    this.form.reset();
+    this.form.reset();    
   }
 
   private getMessage() {

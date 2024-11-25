@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButton } from '@angular/material/button';
@@ -34,9 +33,7 @@ import { environment } from '../../core/environments/environment';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
-    RouterModule,
     StoreModule.forFeature(FeatureNames.GuestBook, guestBookReducer),
     EffectsModule.forFeature([GuestBookEffects]),
     SharedModule,

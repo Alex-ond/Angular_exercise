@@ -7,18 +7,18 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class FilterPipe implements PipeTransform {
     transform<O extends object, K extends keyof O>(
         entities: O[] | null,
-        filterString: string,
+        filter: O[K],
         propertyName: K): O[] {
 
         if (!entities) {
             return [];
         }
-        if (entities.length === 0 || filterString === '') {
+        if (entities.length === 0 || filter === '') {
             return entities;
         }
         return entities.filter(entity => {
             const propertyValue = entity[propertyName];
-            return typeof propertyValue === 'string' && propertyValue.indexOf(filterString) > -1;
+            return typeof propertyValue === 'string' && typeof filter === 'string' && propertyValue.indexOf(filter) > -1;
         });
     }
 }
