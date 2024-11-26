@@ -1,0 +1,13 @@
+<div *ngIf="!(isLoading$ | async); else isLoading">
+  @for (message of messages$ | async; track message.id) {
+  <app-message [message]="message"></app-message>
+  }
+</div>
+
+<ng-template #isLoading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
+
+<div *ngIf="errorMessage$ | async as errorMessage">
+  <app-error [errorMessage]="errorMessage"> </app-error>
+</div>

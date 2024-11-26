@@ -1,0 +1,10 @@
+<div class="container" #container>
+  <div
+    *ngFor="let number of [].constructor(starCount); let i = index"
+    (click)="onClick(i)"
+  >
+    <mat-icon [ngClass]="'mat-icon-' + size">
+      {{ getIcon(i) }}
+    </mat-icon>
+  </div>
+</div>

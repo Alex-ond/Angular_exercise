@@ -1,0 +1,34 @@
+<mat-card ngClass="card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title ngClass="title"
+      >
+      <span>{{ post.title }}</span>
+      <app-rating
+        ngClass="readonlyRating"
+        *ngIf="post.rating > 0"
+        [value]="post.rating"
+        [readonly]="true"
+        size="small"
+      >
+      </app-rating>
+      <div ngClass="ratingContainer" *ngIf="!post.voted">
+        <app-rating ngClass="ratingControl" #rating></app-rating>
+        <button
+          ngClass="ratingButton"
+          [disabled]="!rating.value"
+          mat-stroked-button
+          (click)="onVote(post.id, rating.value!)"
+        >
+          VOTE
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>{{ post.username }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    {{ post.body }}
+  </mat-card-content>
+  <mat-card-actions ngClass="card-actions">
+    <a ref="#" [routerLink]="createCommentsUrl(post.id)">VIEW COMMENTS</a>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.mat-icon-small {
+  font-size: 1rem;
+}
+
+.mat-icon-normal {
+  font-size: 1.4rem;
+}

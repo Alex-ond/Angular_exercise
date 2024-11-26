@@ -1,23 +1,26 @@
-import { PostComment } from "../models/post-comment";
-import { Post } from "../models/post";
-import { AppState } from "../../../core/store/app.state";
+import { PostComment } from '../models/post-comment';
+import { Post } from '../models/post';
 
-export interface BlogState extends AppState{
+export interface BlogState {
     posts: Post[],
     isPostsLoading: boolean,
     postsFetchingErrorMessage: string
 
-    postComments: PostComment[],    
+    postComments: PostComment[],
     isPostCommentsLoading: boolean,
-    postCommentsFetchingErrorMessage: string
+    postCommentsFetchingErrorMessage: string,
+
+    voteErrorMessage: string
 }
 
-export const initialState: BlogState = {    
+export const initialState: BlogState = {
     posts: [],
-    isPostsLoading: false,    
+    isPostsLoading: false,
     postsFetchingErrorMessage: '',
 
     postComments: [],
     isPostCommentsLoading: false,
-    postCommentsFetchingErrorMessage: ''
+    postCommentsFetchingErrorMessage: '',
+
+    voteErrorMessage: ''
 }

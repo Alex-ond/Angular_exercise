@@ -3,5 +3,7 @@ export type Post = {
     userId: number,
     username?: string,
     title: string,
-    body: string
+    body: string,
+    rating: number,
+    voted: boolean
 }

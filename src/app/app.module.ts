@@ -8,8 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BlogModule } from './features/blog/blog.module'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { GuestBookModule } from './guest-book/guest-book.module';
 import { HeaderComponent } from './core/layout/header/header.component';
+import { GuestBookModule } from './features/guest-book/guest-book.module';
 
 @NgModule({
   declarations: [
@@ -24,17 +24,16 @@ import { HeaderComponent } from './core/layout/header/header.component';
     StoreDevtoolsModule.instrument(
       {
         maxAge: 25,
-        name: 'Blog App Devtools'        
+        name: 'Blog App Devtools'
       }
     ),
     AppRoutingModule,
     BlogModule,
     GuestBookModule
-],
+  ],
   providers: [
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
- 
+export class AppModule { }
