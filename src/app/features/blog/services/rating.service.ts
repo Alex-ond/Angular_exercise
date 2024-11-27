@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { map, mergeMap, Observable, tap } from 'rxjs';
+import { concatMap, map, Observable, tap } from 'rxjs';
 import { InjectNames } from '../../../core/inject-names';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { LocalStorageService } from './local-storage.service';
@@ -27,64 +27,6 @@ export class RatingService {
         private http: HttpClient,
         private localStorageService: LocalStorageService) { }
 
-    vote(postId: number, rating: number): Observable<{ postId: number, averageRating: number }> {
-
-        const params = new HttpParams({
-            fromObject: {
-                orderBy: '"postId"',
-                equalTo: postId
-            }
-        });
-
-        return this.http.get<ApiPostRatings>(this.url, { params: params }).pipe(
-            map(response => {
-                if (!response) {
-                    return null
-                }
-                for (const key in response) {
-                    return {
-                        savedItemName: key,
-                        savedPostRating: response[key]
-                    };
-                }
-                return null;
-            }),
-            mergeMap(savedPostRatingData => {
-                if (savedPostRatingData) {
-                    const { savedItemName, savedPostRating } = savedPostRatingData;
-                    const postRating: ApiPostRating =
-                    {
-                        postId: savedPostRating.postId,
-                        ratingSum: savedPostRating.ratingSum + rating,
-                        voteNumber: savedPostRating.voteNumber + 1
-                    };
-                    return this.updatePostRating(savedItemName, postRating).pipe(map(() => {
-                        return {
-                            postId: postRating.postId,
-                            averageRating: RatingService.calculateAverageRating(postRating)
-                        };
-                    }));
-                }
-                else {
-                    const postRating: ApiPostRating =
-                    {
-                        postId: postId,
-                        ratingSum: rating,
-                        voteNumber: 1
-                    };
-                    return this.addPostRating(postRating).pipe(map(() => {
-                        return {
-                            postId: postRating.postId,
-                            averageRating: RatingService.calculateAverageRating(postRating)
-                        };
-                    }));
-                }
-            }),
-            tap(({ postId }) => {
-                this.localStorageService.addVotedPostId(postId);
-            }));
-    }
-
     fetchRatingMap(): Observable<Map<number, PostRating>> {
         return this.http.get<ApiPostRatings>(this.url).pipe(
             map(response => {
@@ -93,8 +35,81 @@ export class RatingService {
         );
     }
 
-    private createRatingsMap(postRatings: ApiPostRatings)
-        : Map<number, PostRating> {
+    vote(postId: number, rating: number): Observable<{ postId: number, averageRating: number }> {
+        return this.http.get<ApiPostRatings>(this.url, {
+            params: new HttpParams({
+                fromObject: {
+                    orderBy: '"postId"',
+                    equalTo: postId
+                }
+            })
+        }).pipe(
+            map(response => {
+                if (!response) {
+                    return null;
+                }
+                for (const key in response) {
+                    return {
+                        name: key,
+                        postRating: response[key]
+                    };
+                }
+                return null;
+            }),
+            concatMap(existingPostRating => {
+                return (existingPostRating ?
+                    this.update(existingPostRating.name, rating, existingPostRating.postRating) :
+                    this.create(postId, rating)).pipe(
+                        tap(({ postId }) => {
+                            this.localStorageService.addVotedPostId(postId);
+                        })
+                    );
+            })
+        );
+    }
+
+    private create(postId: number, rating: number):
+        Observable<{ postId: number, averageRating: number }> {
+
+        const postRating: ApiPostRating =
+        {
+            postId: postId,
+            ratingSum: rating,
+            voteNumber: 1
+        };
+        return this.http.post(this.url, postRating).pipe(
+            map(() => {
+                return {
+                    postId: postId,
+                    averageRating: rating
+                };
+            })
+        );
+    }
+
+    private update(name: string, rating: number, existingPostRating: ApiPostRating):
+        Observable<{ postId: number, averageRating: number }> {
+
+        const postRatings: ApiPostRatings = {};
+        const postRating: ApiPostRating =
+        {
+            postId: existingPostRating.postId,
+            ratingSum: existingPostRating.ratingSum + rating,
+            voteNumber: existingPostRating.voteNumber + 1
+        };
+        postRatings[name] = postRating;
+
+        return this.http.patch(this.url, postRatings).pipe(
+            map(() => {
+                return {
+                    postId: postRating.postId,
+                    averageRating: RatingService.calculateAverageRating(postRating)
+                };
+            })
+        );
+    }
+
+    private createRatingsMap(postRatings: ApiPostRatings): Map<number, PostRating> {
 
         const map = new Map<number, PostRating>();
         if (!postRatings) {
@@ -111,16 +126,6 @@ export class RatingService {
                 });
         }
         return map;
-    }
-
-    private addPostRating(postRating: ApiPostRating) {
-        return this.http.post(this.url, postRating);
-    }
-
-    private updatePostRating(name: string, postRating: ApiPostRating) {
-        const postRatings: ApiPostRatings = {};
-        postRatings[name] = postRating;
-        return this.http.patch(this.url, postRatings);
     }
 
     private static calculateAverageRating(postRating: ApiPostRating): number {
