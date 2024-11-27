@@ -4,6 +4,7 @@ import { GuestBookState, initialState } from "./guest-book.state";
 
 export const guestBookReducer = createReducer<GuestBookState>(
     initialState,
+    
     //fetch messages
     on(BlogActions.fetchMessages, (state) => {
         return { 

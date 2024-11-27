@@ -13,7 +13,6 @@ import { testMessages } from '../../guest-book.test-data.spec';
 describe('MessagesComponent', () => {
     let component: MessagesComponent;
     let fixture: ComponentFixture<MessagesComponent>;
-
     let store: MockStore;
 
     let mockMessagesFetchingErrorMessageSelector: MemoizedSelector<object, string>;
@@ -44,41 +43,41 @@ describe('MessagesComponent', () => {
 
         fixture = TestBed.createComponent(MessagesComponent);
         component = fixture.componentInstance;
-    });
+    })
 
     it('should create', () => {
         expect(component).toBeTruthy();
-    });
+    })
 
     it('should update errorMessage$ when selector data changes', () => {
         mockMessagesFetchingErrorMessageSelector.setResult('testError');
 
         expect(component.errorMessage$).toBeObservable(createSingleCold('testError'));
-    });
+    })
 
     it('should update isLoading$ when selector data changes', () => {
         mockIsMessagesLoadingSelector.setResult(true);
 
         expect(component.isLoading$).toBeObservable(createSingleCold(true));
-    });
+    })
 
     it('should update posts$ when selector data changes', () => {
         mockMessagesSelector.setResult(testMessages);
         
         expect(component.messages$).toBeObservable(createSingleCold(testMessages));
-    });
+    })
 
     it('should show error component when errorMessage$ is not empty', () => {
         mockMessagesFetchingErrorMessageSelector.setResult('testError');
         fixture.detectChanges();
 
         expect(queryByDirective(fixture, ErrorComponent)).not.toBeNull()
-    });
+    })
 
     it('should show progress bar component when isLoading$ is true', () => {
         mockIsMessagesLoadingSelector.setResult(true);
         fixture.detectChanges();
 
         expect(queryByDirective(fixture, MatProgressBar)).not.toBeNull()
-    });
+    })
 });

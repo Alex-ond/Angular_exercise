@@ -2,7 +2,6 @@ import { testState } from '../guest-book.test-data.spec';
 import * as Selectors from './guest-book.selectors'
 
 describe('Guest book selectors', () => {
-
     it('postsSelector', () => {
         const result = Selectors.messagesSelector.projector(testState);
 

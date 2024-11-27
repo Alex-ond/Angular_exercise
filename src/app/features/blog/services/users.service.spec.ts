@@ -5,7 +5,6 @@ import { UsersService } from './users.service';
 import { testUsers } from '../blog.test-data.spec';
 
 describe('UserService', () => {
-
     let userService: UsersService;
     let httpTestingController: HttpTestingController;
 
@@ -22,7 +21,7 @@ describe('UserService', () => {
 
         httpTestingController = TestBed.inject(HttpTestingController);
         userService = TestBed.inject(UsersService);
-    });
+    })
 
     it('should fetch users', (done) => {
         userService.fetchUsers().subscribe(
@@ -37,5 +36,5 @@ describe('UserService', () => {
             {
                 status: 200, statusText: 'OK'
             });
-    });
+    })
 })

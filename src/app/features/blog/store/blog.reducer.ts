@@ -4,6 +4,7 @@ import { BlogState, initialState } from './blog.state';
 
 export const blogReducer = createReducer<BlogState>(
     initialState,
+
     //fetch posts
     on(BlogActions.fetchPosts, (state) => {
         return {
@@ -26,6 +27,7 @@ export const blogReducer = createReducer<BlogState>(
             postsFetchingErrorMessage: action.errorMessage
         };
     }),
+
     //fetch comments by post id
     on(BlogActions.fetchPostCommentsByPostId, (state) => {
         return {
@@ -49,6 +51,7 @@ export const blogReducer = createReducer<BlogState>(
             postCommentsFetchingErrorMessage: action.errorMessage
         };
     }),
+
     //vote
     on(BlogActions.vote, (state, action) => {
         const updatedPosts = state.posts.map(post => action.postId === post.id ? { ...post, voted: true } : post);
@@ -58,7 +61,7 @@ export const blogReducer = createReducer<BlogState>(
         };
     }),
     on(BlogActions.voteSuccess, (state, action) => {
-        const updatedPosts = state.posts.map(post => action.postId === post.id ? { ...post, rating: action.averageRating } : post);
+        const updatedPosts = state.posts.map(post => action.postId === post.id ? { ...post, rating: action.averageRating, voted: true } : post);
         return {
             ...state,
             posts: updatedPosts

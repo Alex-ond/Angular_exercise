@@ -1,30 +1,40 @@
 import { TestBed } from '@angular/core/testing';
-import { provideMockStore } from '@ngrx/store/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable, of, throwError } from 'rxjs';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { provideMockActions } from '@ngrx/effects/testing';
 import * as Actions from './guest-book.actions';
 import { GuestBookEffects } from './guest-book.effects';
 import { GuestBookService } from '../services/guest-book.service';
-import { testMessages, testNewMessage } from '../guest-book.test-data.spec';
+import { testMessages, testCachedMessages, testNewMessage } from '../guest-book.test-data.spec';
+import * as Selectors from './guest-book.selectors';
 
 describe('GuestBookEffects', () => {
     let effects: GuestBookEffects;
     let actions$: Observable<Action>;
     let mockGuestBookService: jasmine.SpyObj<GuestBookService>;
+    let store: MockStore;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                provideMockStore({}),
+                provideMockStore(
+                    {
+                        selectors: [
+                            {
+                                selector: Selectors.messagesSelector, value: []
+                            }
+                        ]
+                    }),
                 GuestBookEffects,
                 provideMockActions(() => actions$),
-                { 
-                    provide: GuestBookService, 
-                    useValue: jasmine.createSpyObj<GuestBookService>(['fetchMessages', 'addMessage']) 
+                {
+                    provide: GuestBookService,
+                    useValue: jasmine.createSpyObj<GuestBookService>(['fetchMessages', 'addMessage'])
                 }
             ]
         });
+        store = TestBed.inject(MockStore);
         effects = TestBed.inject(GuestBookEffects);
         mockGuestBookService = TestBed.inject(GuestBookService) as jasmine.SpyObj<GuestBookService>;
     })
@@ -35,6 +45,17 @@ describe('GuestBookEffects', () => {
 
         effects.fetchMessages$.subscribe((action) => {
             expect(action).toEqual(Actions.fetchMessagesSuccess({ messages: testMessages }));
+            done();
+        });
+    })
+
+    it('fetchMessages$ should return from store [Guest book API] Fetch messages success on success', (done) => {
+        mockGuestBookService.fetchMessages.and.returnValue(of(testMessages));
+        actions$ = of(Actions.fetchMessages())
+        store.overrideSelector(Selectors.messagesSelector, testCachedMessages);
+
+        effects.fetchMessages$.subscribe((action) => {
+            expect(action).toEqual(Actions.fetchMessagesSuccess({ messages: testCachedMessages }));
             done();
         });
     })

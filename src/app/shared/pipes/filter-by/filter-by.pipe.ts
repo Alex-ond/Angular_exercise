@@ -18,7 +18,10 @@ export class FilterPipe implements PipeTransform {
         }
         return entities.filter(entity => {
             const propertyValue = entity[propertyName];
-            return typeof propertyValue === 'string' && typeof filter === 'string' && propertyValue.indexOf(filter) > -1;
+            
+            return typeof propertyValue === 'string' && 
+                typeof filter === 'string' && 
+                propertyValue.indexOf(filter) > -1;
         });
     }
 }

@@ -24,6 +24,20 @@ export const testPosts: Post[] = [
         username: 'Anna'
     }
 ]
+
+export const testCachedPosts: Post[] = [
+    ...testPosts,
+    {
+        id: 3,
+        title: 'title3',
+        body: 'body3',
+        rating: 1,
+        userId: 2,
+        voted: true,
+        username: 'cached'
+    }
+]
+
 export const testRatingMap: Map<number, PostRating> = new Map(
     [
         [
@@ -90,15 +104,15 @@ export const testPostComments: PostComment[] = [
     {
         id: 1,
         postId: 1,
-        body: 'Comment1',
         name: 'Name1',
+        body: 'Comment1',
         email: 'Email1'
     },
     {
         id: 2,
         postId: 2,
-        body: 'Comment2',
         name: 'Name2',
+        body: 'Comment2',
         email: 'Email2'
     }
 ]

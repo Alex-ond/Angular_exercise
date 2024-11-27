@@ -21,7 +21,7 @@ export const testNewMessage: Message = {
     id: '',
     message: '1'.repeat(20),
     author: {
-        email: 'test@test.com', 
+        email: 'test@test.com',
         name: 'name'
     }
 }
@@ -41,6 +41,17 @@ export const testMessages: Message[] = [
         author: {
             name: 'Anna',
             email: 'email2'
+        }
+    }
+]
+
+export const testCachedMessages: Message[] = [
+    ...testMessages,
+    {
+
+        id: '3', message: 'message3', author: {
+            name: 'John',
+            email: 'email3'
         }
     }
 ]

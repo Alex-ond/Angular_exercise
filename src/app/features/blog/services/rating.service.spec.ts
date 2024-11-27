@@ -6,7 +6,6 @@ import { LocalStorageService } from './local-storage.service';
 import { testApiRatings, testRatingMap, testCreatedVoteResult, testVotedPostIds, testUpdatedVoteResult } from '../blog.test-data.spec';
 
 describe('RatingService', () => {
-
     let ratingService: RatingService;
     let httpTestingController: HttpTestingController;
     let localStorageServiceSpy: jasmine.SpyObj<LocalStorageService>;
@@ -33,7 +32,7 @@ describe('RatingService', () => {
 
         httpTestingController = TestBed.inject(HttpTestingController);
         ratingService = TestBed.inject(RatingService);
-    });
+    })
 
     it('should fetch rating map', (done) => {
         ratingService.fetchRatingMap().subscribe(
@@ -45,7 +44,7 @@ describe('RatingService', () => {
         const getRequest = httpTestingController.expectOne('postRatingUrl');
         expect(getRequest.request.method).toBe('GET');
         getRequest.flush(testApiRatings, { status: 200, statusText: 'OK' });
-    });
+    })
 
     it('should create post rating', (done) => {
         const postId = 3;
@@ -63,7 +62,7 @@ describe('RatingService', () => {
         const postRequest = httpTestingController.expectOne('postRatingUrl');
         expect(postRequest.request.method).toBe('POST');
         postRequest.flush(null, { status: 201, statusText: 'OK' });
-    });
+    })
 
     it('should update post rating', (done) => {
         const postId = 1;
@@ -81,5 +80,5 @@ describe('RatingService', () => {
         const patchRequest = httpTestingController.expectOne('postRatingUrl');
         expect(patchRequest.request.method).toBe('PATCH');
         patchRequest.flush({ name: '3' }, { status: 201, statusText: 'OK' });
-    });
+    })
 })

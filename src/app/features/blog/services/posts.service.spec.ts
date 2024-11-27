@@ -11,7 +11,6 @@ import { testPostComments, testPosts, testRatingMap, testUsers } from "../blog.t
 const apiPosts = testPosts.map((post) => omit(post, ['username', 'rating', 'voted']));
 
 describe('PostsService', () => {
-
     let postsService: PostsService;
     let httpTestingController: HttpTestingController;
     let userServiceSpy: jasmine.SpyObj<UsersService>;
@@ -39,7 +38,7 @@ describe('PostsService', () => {
 
         httpTestingController = TestBed.inject(HttpTestingController);
         postsService = TestBed.inject(PostsService);
-    });
+    })
 
     it('should fetch posts', done => {
         postsService.fetchPosts().subscribe(
@@ -51,7 +50,7 @@ describe('PostsService', () => {
         const getRequest = httpTestingController.expectOne("testBlog/posts");
         expect(getRequest.request.method).toBe("GET");
         getRequest.flush(apiPosts, { status: 200, statusText: "OK" });
-    });
+    })
 
     it('should fetch post commments by post id', done => {
         postsService.fetchPostCommentsByPostId(1).subscribe(
@@ -63,5 +62,5 @@ describe('PostsService', () => {
         const getRequest = httpTestingController.expectOne("testBlog/posts/1/comments");
         expect(getRequest.request.method).toBe("GET");
         getRequest.flush(testPostComments, { status: 200, statusText: "OK" });
-    });
+    })
 })

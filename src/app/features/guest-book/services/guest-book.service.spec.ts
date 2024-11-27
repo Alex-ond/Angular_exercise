@@ -22,7 +22,7 @@ describe('GuestBookService', () => {
 
         httpTestingController = TestBed.inject(HttpTestingController);
         guestBookService = TestBed.inject(GuestBookService);
-    });
+    })
 
     it('should fetch messages', done => {
         guestBookService.fetchMessages().subscribe(
@@ -34,7 +34,19 @@ describe('GuestBookService', () => {
         const apiRequest = httpTestingController.expectOne("testGuestBook");
         expect(apiRequest.request.method).toBe("GET");
         apiRequest.flush(testApiMessages, { status: 200, statusText: "OK" });
-    });
+    })
+
+    it('should return empty array when http returns null', (done) => {
+        guestBookService.fetchMessages().subscribe(
+            result => {
+                expect(result).toEqual([]);
+                done();
+            });
+
+        const apiRequest = httpTestingController.expectOne("testGuestBook");
+        expect(apiRequest.request.method).toBe("GET");
+        apiRequest.flush(null, { status: 200, statusText: "OK" });
+    })
 
     it('should create message', (done) => {
         guestBookService.addMessage(testMessage).subscribe(
@@ -46,5 +58,5 @@ describe('GuestBookService', () => {
         const getRequest = httpTestingController.expectOne("testGuestBook");
         expect(getRequest.request.method).toBe("POST");
         getRequest.flush({ name: '3' }, { status: 200, statusText: "OK" });
-    });
+    })
 })
