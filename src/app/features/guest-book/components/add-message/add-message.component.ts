@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { GuestBookState } from '../../store/guest-book.state';
 import { addMessage } from '../../store/guest-book.actions';
 import * as Selectors from '../../store/guest-book.selectors'
+import { clearErrors } from '../../../../shared/form-utils';
 
 @Component({
   selector: 'app-add-message',
@@ -26,6 +27,7 @@ export class AddMessageComponent {
     const message = this.getMessage();
     this.store.dispatch(addMessage(message));
     this.form.reset();    
+    clearErrors(this.form);
   }
 
   private getMessage() {
