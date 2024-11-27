@@ -29,16 +29,16 @@ describe('AuthorInfoDialogComponent', () => {
         fixture = TestBed.createComponent(AuthorInfoDialogComponent);
         component = fixture.componentInstance;
 
-        let selector = store.overrideSelector(Selectors.selectedMessageAuthorSelector, null);
+        const selector = store.overrideSelector(Selectors.selectedMessageAuthorSelector, null);
         selector.setResult(testaAuthor);
         fixture.detectChanges();
-    });
+    })
 
     it('should create', () => {
         expect(component).toBeTruthy();
-    });
+    })
 
     it('should set author$', () => {
         expect(component.author$).toBeObservable(createSingleCold(testaAuthor));
-    });
+    })
 });

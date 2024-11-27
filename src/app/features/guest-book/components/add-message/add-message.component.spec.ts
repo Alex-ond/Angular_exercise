@@ -37,11 +37,11 @@ describe('AddMessageComponent', () => {
         fixture = TestBed.createComponent(AddMessageComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-    });
+    })
 
     it('should create', () => {
         expect(component).toBeTruthy();
-    });
+    })
 
     it('should set form to invalid when name is empty', () => {
         component.form.setValue(
@@ -52,7 +52,7 @@ describe('AddMessageComponent', () => {
             }
         )
         expect(component.form.valid).toBeFalse();
-    });
+    })
 
     it('should set form to invalid when email is not valid', () => {
         component.form.setValue(
@@ -63,7 +63,7 @@ describe('AddMessageComponent', () => {
             }
         )
         expect(component.form.valid).toBeFalse();
-    });
+    })
 
     it('should set form to invalid when message < 20 characters', () => {
         component.form.setValue(
@@ -74,7 +74,7 @@ describe('AddMessageComponent', () => {
             }
         )
         expect(component.form.valid).toBeFalse();
-    });
+    })
 
     it('should set form to valid', () => {
         component.form.setValue(
@@ -85,7 +85,7 @@ describe('AddMessageComponent', () => {
             }
         )
         expect(component.form.valid).toBeTrue();
-    });
+    })
 
     it('should call dispatch on button click', () => {
         component.form.setValue(
@@ -104,5 +104,5 @@ describe('AddMessageComponent', () => {
         expect(store.dispatch).toHaveBeenCalledWith(
             addMessage(testNewMessage)
         );
-    });
+    })
 });

@@ -13,7 +13,7 @@ enum BlogActionTypes {
 
     Vote = '[Blog Page] Vote',
     VoteSuccess = '[Blog API] Vote success',
-    VoteFailure = '[Blog API] Vote failure',
+    VoteFailure = '[Blog API] Vote failure'
 }
 
 export const fetchPosts = createAction(BlogActionTypes.FetchPosts);

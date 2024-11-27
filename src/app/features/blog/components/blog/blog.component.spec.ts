@@ -54,41 +54,41 @@ describe("BlogComponent", () => {
 
         fixture = TestBed.createComponent(BlogComponent);
         component = fixture.componentInstance;
-    });
+    })
 
     it("should create", () => {
         expect(component).toBeTruthy();
-    });
+    })
 
     it('should update errorMessage$ when selector data changes', () => {
         postsFetchingErrorMessageSelector.setResult('testError');
 
         expect(component.errorMessage$).toBeObservable(createSingleCold('testError'));
-    });
+    })
 
     it('should update isLoading$ when selector data changes', () => {
         isPostsLoadingSelector.setResult(true);
 
         expect(component.isLoading$).toBeObservable(createSingleCold(true));
-    });
+    })
 
     it('should update posts$ when selector data changes', () => {
         postsSelector.setResult(testPosts);
 
         expect(component.posts$).toBeObservable(createSingleCold(testPosts));
-    });
+    })
 
     it('should show error component when errorMessage$ is not empty', () => {
         postsFetchingErrorMessageSelector.setResult('testError');
         fixture.detectChanges();
 
         expect(queryByDirective(fixture, ErrorComponent)).not.toBeNull()
-    });
+    })
 
     it('should show progress bar component when isLoading$ is true', () => {
         isPostsLoadingSelector.setResult(true);
         fixture.detectChanges();
 
         expect(queryByDirective(fixture, MatProgressBar)).not.toBeNull()
-    });
+    })
 });

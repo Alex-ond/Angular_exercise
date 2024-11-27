@@ -3,7 +3,6 @@ import * as Selectors from './blog.selectors'
 import { BlogState } from './blog.state'
 
 describe('Blog selectors', () => {
-
     it('postsSelector', () => {
         const result = Selectors.postsSelector.projector(testState);
 

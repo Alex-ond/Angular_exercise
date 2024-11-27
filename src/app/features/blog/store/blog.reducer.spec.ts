@@ -1,6 +1,5 @@
 import { testPostComments, testPosts } from "../blog.test-data.spec";
 import { Post } from "../models/post";
-import { PostComment } from "../models/post-comment";
 import * as Actions from "./blog.actions";
 import { blogReducer } from "./blog.reducer";
 import { BlogState, initialState } from "./blog.state";
@@ -15,7 +14,7 @@ describe('blogReducer', () => {
         const result = blogReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('fetchPostsSuccess', () => {
         const action = Actions.fetchPostsSuccess({ posts: testPosts });
@@ -26,7 +25,7 @@ describe('blogReducer', () => {
         const result = blogReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('fetchPostsFailure', () => {
         const errorMessage = 'testError';
@@ -38,7 +37,7 @@ describe('blogReducer', () => {
         const result = blogReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('fetchPostCommentsByPostId', () => {
         const postId = 1;
@@ -50,7 +49,7 @@ describe('blogReducer', () => {
         const result = blogReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('fetchPostCommentsByPostIdSuccess', () => {
 
@@ -62,7 +61,7 @@ describe('blogReducer', () => {
         const result = blogReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('fetchPostCommentsByPostIdFailure', () => {
         const errorMessage = 'testError';
@@ -74,7 +73,7 @@ describe('blogReducer', () => {
         const result = blogReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('vote', () => {
         const postId = 1;
@@ -101,34 +100,30 @@ describe('blogReducer', () => {
         const result = blogReducer(stateWithPosts, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('voteSuccess', () => {
-        const postId = 1;
+        const postId = 2;
         const averageRating = 2;
         const action = Actions.voteSuccess({ postId, averageRating });
-        const posts: Post[] = [
-            {
-                id: 1,
-                title: 'title1',
-                body: 'body1',
-                rating: 1,
-                userId: 1,
-                voted: true,
-                username: 'Alex'
-            }
-        ]
-        const stateWithPosts = { ...initialState, posts };
+
+        const stateWithPosts: BlogState = { ...initialState, posts: testPosts };
         const expectedState: BlogState = {
             ...stateWithPosts,
-            posts: posts.map((post) => {
-                return { ...post, voted: true, rating: 2 };
+            posts: testPosts.map((post) => {
+                console.log(post);
+                if (post.id === 2) {
+                    return { ...post, voted: true, rating: 2 };
+                }
+                else {
+                    return post;
+                }
             })
         };
         const result = blogReducer(stateWithPosts, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('voteFailure', () => {
         const errorMessage = 'testError';
@@ -140,5 +135,5 @@ describe('blogReducer', () => {
         const result = blogReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 })

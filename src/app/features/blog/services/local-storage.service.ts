@@ -6,7 +6,7 @@ const votedPostIdsKey = 'votedPostIds';
 export class LocalStorageService {
     
     addVotedPostId(postId: number) {
-        let votedPostIds: number[] = this.getVotedPostIds()
+        const votedPostIds: number[] = this.getVotedPostIds()
         votedPostIds.push(postId);
         localStorage.setItem(votedPostIdsKey, JSON.stringify(votedPostIds));
     }

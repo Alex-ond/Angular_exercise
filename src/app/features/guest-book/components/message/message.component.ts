@@ -15,6 +15,7 @@ import { AuthorInfoDialogComponent } from '../author-info-dialog/author-info-dia
 export class MessageComponent {
   @Input({ required: true })
   message!: Message;
+  
   readonly dialog = inject(MatDialog);
 
   constructor(private store: Store<GuestBookState>) { }

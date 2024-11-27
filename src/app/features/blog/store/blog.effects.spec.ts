@@ -1,21 +1,21 @@
 import { BlogEffects } from './blog.effects';
 import { TestBed } from '@angular/core/testing';
-import { provideMockStore } from '@ngrx/store/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { PostsService } from '../services/posts.service';
 import { RatingService } from '../services/rating.service';
-import { postsSelector } from './blog.selectors';
+import * as Selectors from './blog.selectors';
 import * as Actions from './blog.actions';
-import { testPostComments, testPosts } from '../blog.test-data.spec';
+import { testCachedPosts, testPostComments, testPosts } from '../blog.test-data.spec';
 
-describe('ProductEffects', () => {
-    
+describe('BlogEffects', () => {    
     let effects: BlogEffects;
     let actions$: Observable<Action>;
     let mockPostsService: jasmine.SpyObj<PostsService>;
     let mockRatingService: jasmine.SpyObj<RatingService>;
+    let store: MockStore;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -23,7 +23,7 @@ describe('ProductEffects', () => {
                 provideMockStore({
                     selectors: [
                         {
-                            selector: postsSelector, value: []
+                            selector: Selectors.postsSelector, value: []
                         }
                     ]
                 }),
@@ -37,17 +37,29 @@ describe('ProductEffects', () => {
                 }
             ]
         });
-        effects = TestBed.inject(BlogEffects);
+        store = TestBed.inject(MockStore);
+        effects = TestBed.inject(BlogEffects);        
         mockPostsService = TestBed.inject(PostsService) as jasmine.SpyObj<PostsService>;
-        mockRatingService = TestBed.inject(RatingService) as jasmine.SpyObj<RatingService>;
+        mockRatingService = TestBed.inject(RatingService) as jasmine.SpyObj<RatingService>;      
     })
 
     it('fetchPosts$ should return [BLog API] Fetch posts success on success', (done) => {
         mockPostsService.fetchPosts.and.returnValue(of(testPosts));
-        actions$ = of(Actions.fetchPosts())
+        actions$ = of(Actions.fetchPosts());
 
         effects.fetchPosts$.subscribe((action) => {
             expect(action).toEqual(Actions.fetchPostsSuccess({ posts: testPosts }));
+            done();
+        });
+    })
+
+    it('fetchPosts$ should return from store [BLog API] Fetch posts success on success', (done) => {
+        mockPostsService.fetchPosts.and.returnValue(of(testPosts));
+        actions$ = of(Actions.fetchPosts());
+        store.overrideSelector(Selectors.postsSelector, testCachedPosts);
+
+        effects.fetchPosts$.subscribe((action) => {
+            expect(action).toEqual(Actions.fetchPostsSuccess({ posts: testCachedPosts }));
             done();
         });
     })

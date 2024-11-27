@@ -21,7 +21,7 @@ export class BlogEffects {
             ofType(BlogActions.fetchPosts),
             withLatestFrom(this.store.select(postsSelector)),
             switchMap(([_, storedPosts]) => {
-                if (storedPosts.length > 0) {
+                if (storedPosts?.length > 0) {
                     return of(BlogActions.fetchPostsSuccess({ posts: storedPosts }));
                 }
                 return this.postsService.fetchPosts().pipe(

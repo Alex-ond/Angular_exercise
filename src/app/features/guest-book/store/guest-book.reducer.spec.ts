@@ -13,7 +13,7 @@ describe('Blog reducer', () => {
         const result = guestBookReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('fetchMessagesSuccess', () => {
         const action = Actions.fetchMessagesSuccess({ messages: testMessages });
@@ -24,7 +24,7 @@ describe('Blog reducer', () => {
         const result = guestBookReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('fetchMessagesFailure', () => {
         const errorMessage = 'testError';
@@ -36,7 +36,7 @@ describe('Blog reducer', () => {
         const result = guestBookReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('addMessage', () => {
         const action = Actions.addMessage(testNewMessage);
@@ -47,7 +47,7 @@ describe('Blog reducer', () => {
         const result = guestBookReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('addMessageSuccess', () => {
         const action = Actions.addMessageSuccess({ message: { ...testNewMessage, id: '3' } });
@@ -58,7 +58,7 @@ describe('Blog reducer', () => {
         const result = guestBookReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('addMessageFailure', () => {
         const errorMessage = 'testError';
@@ -70,7 +70,7 @@ describe('Blog reducer', () => {
         const result = guestBookReducer(initialState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 
     it('selectMessage', () => {
         const messageId = '2';
@@ -82,5 +82,5 @@ describe('Blog reducer', () => {
         const result = guestBookReducer(expectedState, action)
 
         expect(result).toEqual(expectedState);
-    });
+    })
 })
